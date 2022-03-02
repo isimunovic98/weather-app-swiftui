@@ -18,6 +18,7 @@ struct HomeScreen: View {
     @State private var searchText = ""
     
     var body: some View {
+        NavigationView {
         ZStack{
             Image(viewModel.output.screenData.backgroundImage)
                 .resizable()
@@ -26,7 +27,7 @@ struct HomeScreen: View {
             VStack {
                 Spacer()
                 VStack {
-                    Text(String(viewModel.output.screenData.currentTemperature))
+                    Text(String(viewModel.output.screenData.temp))
                         .font(.system(size: 80))
                         .foregroundColor(.white)
                         .padding()
@@ -36,12 +37,13 @@ struct HomeScreen: View {
                         .padding()
                 }
                 VStack {
-                    Text(viewModel.output.screenData.cityName)
+                    Text(viewModel.output.screenData.name)
                         .foregroundColor(.white)
+                        .font(.system(size: 20))
                         .padding()
                     HStack {
                         VStack {
-                            Text(String(viewModel.output.screenData.lowTemperature))
+                            Text(String(viewModel.output.screenData.tempMin))
                                 .foregroundColor(.white)
                                 .padding()
                             Text("Low")
@@ -49,7 +51,7 @@ struct HomeScreen: View {
                         }
                         Divider().frame(maxHeight: 100);
                         VStack {
-                            Text(String(viewModel.output.screenData.highTemperature))
+                            Text(String(viewModel.output.screenData.tempMax))
                                 .foregroundColor(.white)
                                 .padding()
                             Text("High")
@@ -78,25 +80,26 @@ struct HomeScreen: View {
                             Image("wind_icon")
                                 .padding(.top)
                                 .scaledToFit()
-                            Text(String(viewModel.output.screenData.windSpeed))
+                            Text(String(viewModel.output.screenData.wind))
                                 .foregroundColor(.white)
                                 .padding(.top)
                         }
                         Spacer()
                     }
                     .padding()
-                    
                     HStack {
-                        
                         Image("settings_icon")
                             .resizable()
                             .scaledToFit()
                             .frame(width: UIScreen.main.bounds.width * 0.125)
                         
-                        SearchBar(text: $searchText)
+                        NavigationLink(destination: SearchView(backgroundImage: viewModel.output.screenData.backgroundImage)) {
+                            SearchBarDummy()
+                        }
                     }.padding()
                 }
-            }.onAppear(perform: { viewModel.handleGettingLocation()})
+            }.onAppear(perform: { viewModel.startViewModel()})
+        }.navigationViewStyle(.stack)
         }
     }
 }
@@ -106,7 +109,8 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         
         let repository = Repository()
-        let homeScreenViewModel = HomeScreenViewModel(repository: repository)
+        let persistence = Database()
+        let homeScreenViewModel = HomeScreenViewModel(repository: repository, persistence: persistence)
         
         HomeScreen(viewmodel: homeScreenViewModel)
     }

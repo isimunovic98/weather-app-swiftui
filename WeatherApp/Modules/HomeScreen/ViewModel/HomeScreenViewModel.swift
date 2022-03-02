@@ -5,7 +5,6 @@
 //  Created by Domagoj Bunoza on 01.03.2022..
 //
 
-import SwiftUI
 import Combine
 import Alamofire
 
@@ -30,7 +29,7 @@ class HomeScreenViewModel : ObservableObject {
     }
     
     struct Output {
-        var screenData: ScreenData
+        var screenData: WeatherItem
         var outputAction: States
         var outputSubject: PassthroughSubject<States, Never>
     }
@@ -45,26 +44,18 @@ class HomeScreenViewModel : ObservableObject {
     var input = CurrentValueSubject<States, Never>(.Loading)
 
     @Published var output : Output = Output(
-        screenData: ScreenData(
-            backgroundImage: "",
-            currentTemperature: "-15",
-            weatherDescription: "0",
-            cityName: "x",
-            lowTemperature: "0",
-            highTemperature: "0",
-            windSpeed: "0",
-            pressure: "0",
-            humidity: "0"
-        ),
+        screenData: WeatherItem(temp: "", tempMin: "", tempMax: "", pressure: "", humidity: "", backgroundImage: "", weatherDescription: "", wind: "", name: ""),
         outputAction: .Loading,
         outputSubject: PassthroughSubject<States, Never>()
     )
     
     var coords : Coords
     let repository : Repository
+    let persistence : Database
     
-    init(repository : Repository) {
+    init(repository : Repository, persistence : Database) {
         self.repository = repository
+        self.persistence = persistence
         coords = Coords(lat: "0", lng: "0")
     }
     
@@ -91,15 +82,14 @@ class HomeScreenViewModel : ObservableObject {
         }
     
     func handleGettingLocation() {
-        return repository.getLocationCoordinates(cityName: Constants.cityNameDefault , completion: { result -> () in
-            result.map { geoResponse in
-                self.coords.lat = geoResponse.geonames[0].lat
-                self.coords.lng = geoResponse.geonames[0].lng
-                
-                print(self.coords.lat + " " + self.coords.lng)
-                self.setupBindings().store(in: &self.disposebag)
-            }
-        })
+        let currentCity = persistence.fetchCurrentCity()
+        coords.lng = currentCity.lng
+        coords.lat = currentCity.lat
+    }
+    
+    func startViewModel(){
+        handleGettingLocation()
+        self.setupBindings().store(in: &self.disposebag)
     }
     
     func handleWeatherResponse() -> AnyPublisher<States, Never> {
@@ -114,16 +104,16 @@ class HomeScreenViewModel : ObservableObject {
     func createOutput(response: WeatherResponse) -> Output {
         print(response.weather[0].main)
         
-        output.screenData = ScreenData(
-            backgroundImage: handleImageChoice(weather: response.weather[0].main),
-            currentTemperature: String(Int(response.main.temp)) + " °C",
-            weatherDescription: response.weather[0].weatherDescription,
-            cityName: response.name,
-            lowTemperature: String(Int(response.main.tempMin)) + " °C",
-            highTemperature: String(Int(response.main.tempMax)) + " °C",
-            windSpeed: String(response.wind.speed) + " km/h",
+        output.screenData = WeatherItem(
+            temp: String(Int(response.main.temp)) + " °C",
+            tempMin: String(Int(response.main.tempMin)) + " °C",
+            tempMax: String(Int(response.main.tempMax)) + " °C",
             pressure: String(response.main.pressure) + " hPa",
-            humidity: String(response.main.humidity) + " %"
+            humidity: String(response.main.humidity) + " %",
+            backgroundImage: handleImageChoice(weather: response.weather[0].main),
+            weatherDescription: response.weather[0].weatherDescription,
+            wind: String(response.wind.speed) + " km/h",
+            name: response.name
         )
         getStates.send(.Loaded)
         return output
