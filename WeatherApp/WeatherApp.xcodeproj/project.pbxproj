@@ -10,6 +10,11 @@
 		5985CF1DB1ADCE3E4908CA38 /* Pods_WeatherApp__iOS_.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33175B0E4258588FBF899592 /* Pods_WeatherApp__iOS_.framework */; };
 		C502F2BB27CE9C780078F260 /* WeatherResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C502F2BA27CE9C780078F260 /* WeatherResponse.swift */; };
 		C502F2BC27CE9C780078F260 /* WeatherResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C502F2BA27CE9C780078F260 /* WeatherResponse.swift */; };
+		C50E24ED27D0B6CF003E1ACF /* SettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50E24EC27D0B6CF003E1ACF /* SettingsScreen.swift */; };
+		C50E24EF27D0B786003E1ACF /* SettingsScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50E24EE27D0B786003E1ACF /* SettingsScreenViewModel.swift */; };
+		C50E24F327D0C732003E1ACF /* RadioButtonGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50E24F227D0C732003E1ACF /* RadioButtonGroup.swift */; };
+		C50E24F527D0D5D7003E1ACF /* CheckListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50E24F427D0D5D7003E1ACF /* CheckListItem.swift */; };
+		C50E24F727D0D694003E1ACF /* CheckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50E24F627D0D694003E1ACF /* CheckView.swift */; };
 		C532E72527CE69AD00CBEE79 /* SerializationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C532E72427CE69AD00CBEE79 /* SerializationManager.swift */; };
 		C532E72627CE69AD00CBEE79 /* SerializationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C532E72427CE69AD00CBEE79 /* SerializationManager.swift */; };
 		C532E72827CE6C3900CBEE79 /* GeoResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C532E72727CE6C3900CBEE79 /* GeoResponse.swift */; };
@@ -47,6 +52,11 @@
 		4BA5B8A497AB0D2E6E15814E /* Pods-WeatherApp (iOS).debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeatherApp (iOS).debug.xcconfig"; path = "Target Support Files/Pods-WeatherApp (iOS)/Pods-WeatherApp (iOS).debug.xcconfig"; sourceTree = "<group>"; };
 		5BD87A95B6E0BA81C42355F3 /* Pods-WeatherApp (iOS).release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeatherApp (iOS).release.xcconfig"; path = "Target Support Files/Pods-WeatherApp (iOS)/Pods-WeatherApp (iOS).release.xcconfig"; sourceTree = "<group>"; };
 		C502F2BA27CE9C780078F260 /* WeatherResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherResponse.swift; sourceTree = "<group>"; };
+		C50E24EC27D0B6CF003E1ACF /* SettingsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreen.swift; sourceTree = "<group>"; };
+		C50E24EE27D0B786003E1ACF /* SettingsScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreenViewModel.swift; sourceTree = "<group>"; };
+		C50E24F227D0C732003E1ACF /* RadioButtonGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButtonGroup.swift; sourceTree = "<group>"; };
+		C50E24F427D0D5D7003E1ACF /* CheckListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListItem.swift; sourceTree = "<group>"; };
+		C50E24F627D0D694003E1ACF /* CheckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckView.swift; sourceTree = "<group>"; };
 		C532E72427CE69AD00CBEE79 /* SerializationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SerializationManager.swift; sourceTree = "<group>"; };
 		C532E72727CE6C3900CBEE79 /* GeoResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoResponse.swift; sourceTree = "<group>"; };
 		C54D8C5927CFB98200242A69 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
@@ -100,6 +110,7 @@
 		C502F2BD27CEC8690078F260 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				C50E24EB27D0B6BB003E1ACF /* SettingsScreen */,
 				C54D8C5827CFB97100242A69 /* SearchScreen */,
 				C54D8C5727CFB36C00242A69 /* HomeScreen */,
 				C5ACC76327CE667400B729F6 /* Model */,
@@ -113,6 +124,34 @@
 				C5ACC76727CE66CF00B729F6 /* Repository.swift */,
 			);
 			path = Repository;
+			sourceTree = "<group>";
+		};
+		C50E24EB27D0B6BB003E1ACF /* SettingsScreen */ = {
+			isa = PBXGroup;
+			children = (
+				C50E24F127D0B792003E1ACF /* ViewModel */,
+				C50E24F027D0B78A003E1ACF /* View */,
+			);
+			path = SettingsScreen;
+			sourceTree = "<group>";
+		};
+		C50E24F027D0B78A003E1ACF /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C50E24EC27D0B6CF003E1ACF /* SettingsScreen.swift */,
+				C50E24F227D0C732003E1ACF /* RadioButtonGroup.swift */,
+				C50E24F427D0D5D7003E1ACF /* CheckListItem.swift */,
+				C50E24F627D0D694003E1ACF /* CheckView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C50E24F127D0B792003E1ACF /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				C50E24EE27D0B786003E1ACF /* SettingsScreenViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		C54D8C5727CFB36C00242A69 /* HomeScreen */ = {
@@ -421,15 +460,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				C54D8C5E27CFC5BE00242A69 /* SearchScreenViewModel.swift in Sources */,
+				C50E24F327D0C732003E1ACF /* RadioButtonGroup.swift in Sources */,
+				C50E24EF27D0B786003E1ACF /* SettingsScreenViewModel.swift in Sources */,
+				C50E24F727D0D694003E1ACF /* CheckView.swift in Sources */,
 				C5ACC76527CE66A900B729F6 /* Constants.swift in Sources */,
 				C54D8C6227CFD57700242A69 /* GeoItem.swift in Sources */,
 				C54D8C6827CFF77300242A69 /* WeatherItem.swift in Sources */,
+				C50E24F527D0D5D7003E1ACF /* CheckListItem.swift in Sources */,
 				C532E72527CE69AD00CBEE79 /* SerializationManager.swift in Sources */,
 				C54D8C6027CFD50400242A69 /* Database.swift in Sources */,
 				C532E72827CE6C3900CBEE79 /* GeoResponse.swift in Sources */,
 				C502F2BB27CE9C780078F260 /* WeatherResponse.swift in Sources */,
 				C54D8C5A27CFB98200242A69 /* SearchView.swift in Sources */,
 				C5ACC76C27CE670900B729F6 /* NetworkError.swift in Sources */,
+				C50E24ED27D0B6CF003E1ACF /* SettingsScreen.swift in Sources */,
 				C57904E627CD79A8006971BA /* HomeScreen.swift in Sources */,
 				C5ACC76127CE664800B729F6 /* HomeScreenViewModel.swift in Sources */,
 				C57904E427CD79A8006971BA /* WeatherAppApp.swift in Sources */,

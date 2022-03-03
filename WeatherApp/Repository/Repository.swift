@@ -10,7 +10,7 @@ class Repository {
         RestManager.fetch(url: "http://api.geonames.org/searchJSON?q=\(cityName)&maxRows=10&lang=es&username=\(Constants.username)", completionHandler: completion)
     }
     
-    func getWeatherData(lat: String, lon: String, completion: @escaping (Result<WeatherResponse, NetworkError>) -> ()) {
-        RestManager.fetch(url: "https://api.openweathermap.org/data/2.5/weather?lat=\(lat)&lon=\(lon)&units=metric&appid=\(Constants.APIKEY)", completionHandler: completion)
+    func getWeatherData(lat: String, lon: String, units: String, completion: @escaping (Result<WeatherResponse, NetworkError>) -> ()) {
+        RestManager.fetch(url: "https://api.openweathermap.org/data/2.5/weather?lat=\(lat)&lon=\(lon)&units=\(units)&appid=\(Constants.APIKEY)", completionHandler: completion)
     }
 }

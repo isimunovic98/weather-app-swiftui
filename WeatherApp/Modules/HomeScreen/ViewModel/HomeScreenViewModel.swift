@@ -93,7 +93,7 @@ class HomeScreenViewModel : ObservableObject {
     }
     
     func handleWeatherResponse() -> AnyPublisher<States, Never> {
-        repository.getWeatherData(lat: coords.lat, lon: coords.lng, completion: { result -> () in
+        repository.getWeatherData(lat: coords.lat, lon: coords.lng, units: persistence.fetchMeasuringUnit(), completion: { result -> () in
             result.map({ result in
                 self.output = self.createOutput(response: result)
             })
@@ -104,15 +104,17 @@ class HomeScreenViewModel : ObservableObject {
     func createOutput(response: WeatherResponse) -> Output {
         print(response.weather[0].main)
         
+        let measuringUnit = persistence.fetchMeasuringUnit()
+        
         output.screenData = WeatherItem(
-            temp: String(Int(response.main.temp)) + " °C",
-            tempMin: String(Int(response.main.tempMin)) + " °C",
-            tempMax: String(Int(response.main.tempMax)) + " °C",
+            temp: measuringUnit == "Metric" ? String(Int(response.main.temp)) + " °C" : String(Int(response.main.temp)) + " °F",
+            tempMin: measuringUnit == "Metric" ? String(Int(response.main.tempMin)) + " °C" : String(Int(response.main.tempMin)) + " °F",
+            tempMax: measuringUnit == "Metric" ? String(Int(response.main.tempMax)) + " °C" : String(Int(response.main.tempMax)) + " °F",
             pressure: String(response.main.pressure) + " hPa",
             humidity: String(response.main.humidity) + " %",
             backgroundImage: handleImageChoice(weather: response.weather[0].main),
             weatherDescription: response.weather[0].weatherDescription,
-            wind: String(response.wind.speed) + " km/h",
+            wind: measuringUnit == "Metric" ? String(Int(response.wind.speed)) + " km/h" : String(Int(response.wind.speed)) + " mph",
             name: response.name
         )
         getStates.send(.Loaded)

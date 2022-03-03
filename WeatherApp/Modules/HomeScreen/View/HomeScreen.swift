@@ -88,10 +88,13 @@ struct HomeScreen: View {
                     }
                     .padding()
                     HStack {
-                        Image("settings_icon")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: UIScreen.main.bounds.width * 0.125)
+                        NavigationLink(destination: SettingsScreen(backgroundImage: viewModel.output.screenData.backgroundImage)) {
+                            Image("settings_icon")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: UIScreen.main.bounds.width * 0.125)
+                        }
+                        
                         
                         NavigationLink(destination: SearchView(backgroundImage: viewModel.output.screenData.backgroundImage)) {
                             SearchBarDummy()
