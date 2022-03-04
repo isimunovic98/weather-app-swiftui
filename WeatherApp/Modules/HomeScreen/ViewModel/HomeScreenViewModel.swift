@@ -10,18 +10,21 @@ import Foundation
 
 class HomeScreenViewModel : ObservableObject {
     
-    @Published var backgroundImage : String
-    @Published var currentTemperature : String
-    @Published var weatherDescription : String
-    @Published var cityName : String
-    @Published var lowTemperature : String
-    @Published var highTemperature : String
-    @Published var windSpeed : String
-    @Published var pressure : String
-    @Published var humidity : String
+    struct ScreenData {
+        var backgroundImage : String
+        var currentTemperature : String
+        var weatherDescription : String
+        var cityName : String
+        var lowTemperature : String
+        var highTemperature : String
+        var windSpeed : String
+        var pressure : String
+        var humidity : String
+    }
     
     @Published var isLoading : Bool
     @Published var error : Error?
+    @Published var screenData : ScreenData
     
     struct Coords {
         var lat : String
@@ -37,15 +40,17 @@ class HomeScreenViewModel : ObservableObject {
     init(repository : WeatherRepository, persistence : Database) {
         self.weatherRepository = repository
         self.persistence = persistence
-        backgroundImage = ""
-        currentTemperature = ""
-        weatherDescription = ""
-        cityName = ""
-        lowTemperature = ""
-        highTemperature = ""
-        windSpeed = ""
-        pressure = ""
-        humidity = ""
+        self.screenData = ScreenData(
+            backgroundImage : "",
+            currentTemperature : "",
+            weatherDescription : "",
+            cityName : "",
+            lowTemperature : "",
+            highTemperature : "",
+            windSpeed : "",
+            pressure : "",
+            humidity : ""
+        )
         coords = Coords(lat: "0", lng: "0")
         isLoading = true
         
@@ -64,7 +69,7 @@ class HomeScreenViewModel : ObservableObject {
                 handleWeatherResponse(geoItem: geoItem)
             })
             .store(in: &self.disposebag)
-        }
+    }
     
     func startViewModel() {
         handleGettingLocation()
@@ -87,16 +92,17 @@ class HomeScreenViewModel : ObservableObject {
     func setOutput(response: WeatherResponse) {
         
         let measuringUnit = persistence.fetchMeasuringUnit()
-        
-        currentTemperature = (measuringUnit == "Metric") ? String(Int(response.main.temp)) + " °C" : String(Int(response.main.temp)) + " °F"
-        lowTemperature = measuringUnit == "Metric" ? String(Int(response.main.tempMin)) + " °C" : String(Int(response.main.tempMin)) + " °F"
-        highTemperature = measuringUnit == "Metric" ? String(Int(response.main.tempMax)) + " °C" : String(Int(response.main.tempMax)) + " °F"
-        pressure = String(response.main.pressure) + " hPa"
-        humidity = String(response.main.humidity) + " %"
-        backgroundImage = Handler().handleImageChoice(weather: response.weather[0].main)
-        weatherDescription = response.weather[0].weatherDescription
-        windSpeed = measuringUnit == "Metric" ? String(Int(response.wind.speed)) + " km/h" : String(Int(response.wind.speed)) + " mph"
-        cityName = response.name
+        let newScreenData = ScreenData(
+            backgroundImage: Handler().handleImageChoice(weather: response.weather[0].main),
+            currentTemperature: (measuringUnit == "Metric") ? String(Int(response.main.temp)) + " °C" : String(Int(response.main.temp)) + " °F",
+            weatherDescription: response.weather[0].weatherDescription,
+            cityName: response.name,
+            lowTemperature: measuringUnit == "Metric" ? String(Int(response.main.tempMin)) + " °C" : String(Int(response.main.tempMin)) + " °F",
+            highTemperature: measuringUnit == "Metric" ? String(Int(response.main.tempMax)) + " °C" : String(Int(response.main.tempMax)) + " °F",
+            windSpeed: measuringUnit == "Metric" ? String(Int(response.wind.speed)) + " km/h" : String(Int(response.wind.speed)) + " mph",
+            pressure: String(response.main.pressure) + " hPa",
+            humidity: String(response.main.humidity) + " %"
+        )
+        screenData = newScreenData
     }
-    
 }

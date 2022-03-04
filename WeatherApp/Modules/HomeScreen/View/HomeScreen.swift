@@ -49,18 +49,18 @@ struct HomeScreen: View {
     }
     
     func renderBackgroundImage() -> some View {
-        return Image(viewModel.backgroundImage)
+        return Image(viewModel.screenData.backgroundImage)
             .resizable()
             .ignoresSafeArea()
     }
     
     func renderCurrentWeatherInfo() -> some View {
         return VStack {
-            Text(String(viewModel.currentTemperature))
+            Text(String(viewModel.screenData.currentTemperature))
                 .font(.system(size: 80))
                 .foregroundColor(.white)
                 .padding()
-            Text(viewModel.weatherDescription)
+            Text(viewModel.screenData.weatherDescription)
                 .font(.system(size: 20))
                 .foregroundColor(.white)
                 .padding()
@@ -70,7 +70,7 @@ struct HomeScreen: View {
     func renderHighLowTemperature() -> some View {
         return HStack {
             VStack {
-                Text(String(viewModel.lowTemperature))
+                Text(String(viewModel.screenData.lowTemperature))
                     .foregroundColor(.white)
                     .padding()
                 Text("Low")
@@ -78,7 +78,7 @@ struct HomeScreen: View {
             }
             Divider().frame(maxHeight: 100);
             VStack {
-                Text(String(viewModel.highTemperature))
+                Text(String(viewModel.screenData.highTemperature))
                     .foregroundColor(.white)
                     .padding()
                 Text("High")
@@ -94,7 +94,7 @@ struct HomeScreen: View {
                 Image("humidity_icon")
                     .scaledToFit()
                     .padding()
-                Text(String(viewModel.humidity))
+                Text(String(viewModel.screenData.humidity))
                     .foregroundColor(.white)
             }
             Spacer()
@@ -102,7 +102,7 @@ struct HomeScreen: View {
                 Image("pressure_icon")
                     .scaledToFit()
                     .padding()
-                Text(String(viewModel.pressure))
+                Text(String(viewModel.screenData.pressure))
                     .foregroundColor(.white)
             }
             Spacer()
@@ -110,7 +110,7 @@ struct HomeScreen: View {
                 Image("wind_icon")
                     .padding(.top)
                     .scaledToFit()
-                Text(String(viewModel.windSpeed))
+                Text(String(viewModel.screenData.windSpeed))
                     .foregroundColor(.white)
                     .padding(.top)
             }
@@ -121,20 +121,20 @@ struct HomeScreen: View {
     
     func renderFooter() -> some View {
         return HStack {
-            NavigationLink(destination: SettingsScreen(backgroundImage: viewModel.backgroundImage)) {
+            NavigationLink(destination: SettingsScreen(backgroundImage: viewModel.screenData.backgroundImage)) {
                 Image("settings_icon")
                     .resizable()
                     .scaledToFit()
                     .frame(width: UIScreen.main.bounds.width * 0.125)
             }
-            NavigationLink(destination: SearchView(backgroundImage: viewModel.backgroundImage)) {
+            NavigationLink(destination: SearchView(backgroundImage: viewModel.screenData.backgroundImage)) {
                 SearchBarDummy()
             }
         }.padding()
     }
     
     func renderCityName() -> some View {
-        return Text(viewModel.cityName)
+        return Text(viewModel.screenData.cityName)
             .foregroundColor(.white)
             .font(.system(size: 20))
             .padding()
