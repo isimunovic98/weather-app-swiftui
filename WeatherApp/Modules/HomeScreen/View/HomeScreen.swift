@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import Combine
 
 struct HomeScreen: View {
     @ObservedObject var viewModel : HomeScreenViewModel
@@ -17,7 +16,6 @@ struct HomeScreen: View {
     init(viewmodel : HomeScreenViewModel, viewProvider : ViewProvider) {
         self.viewModel = viewmodel
         self.viewProvider = viewProvider
-        self.viewModel.startViewModel()
     }
     
     var body: some View {

@@ -48,10 +48,12 @@ class HomeScreenViewModel : ObservableObject {
         humidity = ""
         coords = Coords(lat: "0", lng: "0")
         isLoading = true
+        
+        startViewModel()
     }
     
     func handleGettingLocation() {
-
+        
         persistence.geoItemResult
             .subscribe(on: DispatchQueue.global(qos: .background))
             .receive(on: RunLoop.main)
@@ -62,10 +64,7 @@ class HomeScreenViewModel : ObservableObject {
                 handleWeatherResponse(geoItem: geoItem)
             })
             .store(in: &self.disposebag)
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-//            self.persistence.sendFirstSignal()
-//        }
-    }
+        }
     
     func startViewModel() {
         handleGettingLocation()

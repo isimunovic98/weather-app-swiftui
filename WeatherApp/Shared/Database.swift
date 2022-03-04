@@ -16,7 +16,7 @@ class Database {
     let decoder = JSONDecoder()
     
     let geoItemResult = PassthroughSubject<GeoItem, Never>()
-    
+
     func fetchFeatures() -> [Bool] {
         var feaures : [Bool]
         do {
@@ -109,7 +109,6 @@ class Database {
             defaults.set(data, forKey: "geo")
         }
         catch{}
-        print("store new city")
             self.geoItemResult.send(cityHistory[0])
     }
     
