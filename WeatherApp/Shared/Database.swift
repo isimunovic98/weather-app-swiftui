@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 class Database {
     
@@ -13,6 +14,8 @@ class Database {
     
     let encoder = JSONEncoder()
     let decoder = JSONDecoder()
+    
+    let geoItemResult = PassthroughSubject<GeoItem, Never>()
     
     func fetchFeatures() -> [Bool] {
         var feaures : [Bool]
@@ -59,6 +62,10 @@ class Database {
         }
         catch{}
     }
+        
+    func sendFirstSignal() {
+        geoItemResult.send(fetchCurrentCity())
+    }
     
     func fetchCurrentCity() -> GeoItem {
         var currentCity = [GeoItem]()
@@ -66,7 +73,7 @@ class Database {
         do {
             guard let decoded = defaults.data(forKey: "geo")
             else {
-                return currentCity[0]
+                return defaultGeoItem
             }
             currentCity = try decoder.decode([GeoItem].self, from: decoded)
             if currentCity.count == 0 {
@@ -74,7 +81,7 @@ class Database {
             }
         }
         catch {
-            return currentCity[0]
+            return defaultGeoItem
         }
         return currentCity[0]
     }
@@ -89,7 +96,6 @@ class Database {
             cityHistory = try decoder.decode([GeoItem].self, from: decoded)
         }
         catch {}
-        print(cityHistory)
         return cityHistory
     }
     
@@ -103,7 +109,8 @@ class Database {
             defaults.set(data, forKey: "geo")
         }
         catch{}
-        print(currentCity.name)
+        print("store new city")
+            self.geoItemResult.send(cityHistory[0])
     }
     
     func storeAll(geoItems: [GeoItem]) {
@@ -113,6 +120,8 @@ class Database {
             defaults.set(data, forKey: "geo")
         }
         catch{}
+        print("store all")
+        geoItemResult.send(cityHistory[0])
     }
     
     func removeCity(geoItem: GeoItem) {

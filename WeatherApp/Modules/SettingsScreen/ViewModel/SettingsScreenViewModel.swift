@@ -7,80 +7,41 @@
 
 import Combine
 import Foundation
-class SettingsScreenViewModel : ObservableObject {
-        
-    enum States {
-        case Loading
-        case Loaded
-        case Error
-    }
-    
-    struct ScreenData {
-        var citiesNames : [String]
-        var cities : [GeoItem]
-    }
-    
-    struct Output {
-        var screenData: ScreenData
-        var features: [Bool]
-        var outputAction: States
-        var outputSubject: PassthroughSubject<States, Never>
-    }
-    
-    var getStates = PassthroughSubject<States, Never>()
-    var disposebag = Set<AnyCancellable>()
-    var input = CurrentValueSubject<States, Never>(.Loading)
 
-    @Published var output : Output = Output(
-        screenData: ScreenData(citiesNames: [], cities: []),
-        features: [true, true, true],
-        outputAction: .Loading,
-        outputSubject: PassthroughSubject<States, Never>()
-    )
-    
-    let repository : Repository
+class SettingsScreenViewModel : ObservableObject {
+
+    @Published var citiesNames : [String]
+    @Published var cities : [GeoItem]
+    @Published var humidity : Bool
+    @Published var pressure : Bool
+    @Published var wind : Bool
+
     let persistence : Database
     
-    init(repository : Repository, persistence : Database) {
-        self.repository = repository
+    init(persistence : Database) {
         self.persistence = persistence
+        self.citiesNames = []
+        self.cities = []
+        self.humidity = true
+        self.pressure = true
+        self.wind = true
     }
-    
-    func setupBindings() -> AnyCancellable {
-            return input
-                .flatMap { [unowned self] inputAction -> AnyPublisher<States, Never> in
-                    switch inputAction {
-                    case .Loading:
-                        print("show loader")
-                        return self.handleGettingLocationHistory()
-                    case .Loaded:
-                        print("dismiss loader")
-                        return self.handleGettingLocationHistory()
-                    case .Error:
-                        print("error")
-                        return self.handleGettingLocationHistory()
-                    }
-                }
-                .subscribe(on: DispatchQueue.global(qos: .background))
-                .receive(on: RunLoop.main)
-                .sink { [unowned self] outputActions in
-                    self.output.outputSubject.send(outputActions)
-                }
-        }
-    
-    func handleGettingLocationHistory() -> AnyPublisher<States, Never> {
+        
+    func handleGettingLocationHistory() {
         let cityHistory = persistence.fetchCityHistory()
-        output.screenData = createScreenData(from: cityHistory)
-        getFeatures()
-        return Just(.Loaded).eraseToAnyPublisher()
+        setScreenData(from: cityHistory)
+        setFeatures()
     }
     
-    func getFeatures() {
-        output.features = persistence.fetchFeatures()
+    func setFeatures() {
+        let features = persistence.fetchFeatures()
+        humidity = features[0]
+        pressure = features[1]
+        wind = features[2]
     }
     
     func startViewModel() {
-        self.setupBindings().store(in: &self.disposebag)
+        handleGettingLocationHistory()
     }
     
     func selectedCity(geoItem: GeoItem) {
@@ -93,21 +54,26 @@ class SettingsScreenViewModel : ObservableObject {
         handleGettingLocationHistory()
     }
     
-    func createScreenData(from input: [GeoItem]) -> ScreenData {
-        let screenData = ScreenData(citiesNames: input.map({ $0.name }), cities: input)
-        return screenData
+    func setScreenData(from input: [GeoItem]) {
+        cities = input
+        citiesNames = input.map({ $0.name })
     }
     
     func selectMeasuringUnit(unit: String) {
         persistence.storeMeasuringUnit(unit: unit)
     }
     
-    func toggleFeature(index: Int) {
-        var currentFeatures = persistence.fetchFeatures()
-        
-        
-        currentFeatures[index].toggle()
-        output.features[index].toggle()
-        persistence.storeFeatures(features: currentFeatures)
+    func toggleFeature(feature: String) {
+        switch feature {
+        case "humidity":
+            humidity.toggle()
+        case "pressure":
+            pressure.toggle()
+        case "wind":
+            wind.toggle()
+        default:
+            break
+        }
+        persistence.storeFeatures(features: [humidity, pressure, wind])
     }
 }

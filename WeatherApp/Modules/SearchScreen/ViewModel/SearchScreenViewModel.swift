@@ -10,87 +10,38 @@ import Alamofire
 
 class SearchScreenViewModel : ObservableObject {
     
-    enum States {
-        case Loading
-        case Loaded
-        case Error
-    }
+    @Published var cities : [GeoItem]
     
-    struct ScreenData {
-        var cities : [GeoItem]
-    }
-    
-    struct Output {
-        var screenData: ScreenData
-        var outputAction: States
-        var outputSubject: PassthroughSubject<States, Never>
-    }
-    
-    var getStates = PassthroughSubject<States, Never>()
-    var disposebag = Set<AnyCancellable>()
-    var input = CurrentValueSubject<States, Never>(.Loading)
-    
-    @Published var output : Output = Output(
-        screenData: ScreenData(
-            cities: []
-        ),
-        outputAction: .Loading,
-        outputSubject: PassthroughSubject<States, Never>()
-    )
-    
-    let repository : Repository
+    let locationRepository : LocationRepository
     let persistence : Database
     
-    init(repository : Repository, persistence : Database) {
-        self.repository = repository
+    init(repository : LocationRepository, persistence : Database) {
+        self.locationRepository = repository
         self.persistence = persistence
+        self.cities = []
     }
     
-    func setupBindings(cityName: String) -> AnyCancellable {
-        return input
-            .flatMap { [unowned self] inputAction -> AnyPublisher<States, Never> in
-                switch inputAction {
-                case .Loading:
-                    print("show loader")
-                    return self.handleGettingLocation(cityName: cityName)
-                case .Loaded:
-                    print("dismiss loader")
-                    return self.handleGettingLocation(cityName: cityName)
-                case .Error:
-                    print("error")
-                    return self.handleGettingLocation(cityName: cityName)
-                }
-            }
-            .subscribe(on: DispatchQueue.global(qos: .background))
-            .receive(on: RunLoop.main)
-            .sink { [unowned self] outputActions in
-                self.output.outputSubject.send(outputActions)
-            }
-    }
-    
-    func handleGettingLocation(cityName: String) -> AnyPublisher<States, Never>{
+    func handleGettingLocation(cityName: String) {
         let cityNameModified = modifyCityName(cityName: cityName)
-        repository.getLocationCoordinates(cityName: cityNameModified , completion: { result -> () in
-            result.map { geoResponse in
-                self.createOutput(response: geoResponse)
+        locationRepository.fetch(cityName: cityNameModified , completion: { result -> () in
+            do {
+                try self.setOutput(response: result.get())
             }
+            catch {}
         })
-        return Just(.Loaded).eraseToAnyPublisher()
     }
     
     func startViewmodel(cityName: String) {
-        setupBindings(cityName: cityName).store(in: &disposebag)
+        handleGettingLocation(cityName: cityName)
     }
     
-    func createOutput(response: GeoResponse) {
-        output.screenData.cities = response.geonames.map({
+    func setOutput(response: GeoResponse) {
+        cities = response.geonames.map({
             GeoItem(name: $0.name, lat: $0.lat, lng: $0.lng)
         })
-        print(output.screenData.cities)
-        getStates.send(.Loaded)
     }
     
-    func selectedCity(geoItem: GeoItem){
+    func selectedCity(geoItem: GeoItem) {
         persistence.storeNewCity(geoItem: geoItem)
     }
     
@@ -119,6 +70,5 @@ class SearchScreenViewModel : ObservableObject {
             }
         }
         return String(charsModified)
-
     }
 }
