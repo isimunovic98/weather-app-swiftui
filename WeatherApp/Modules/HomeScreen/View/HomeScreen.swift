@@ -11,6 +11,8 @@ struct HomeScreen: View {
     @ObservedObject var viewModel : HomeScreenViewModel
     @State private var searchText = ""
     
+    let screenHeight = UIScreen.main.bounds.height
+    
     let viewProvider : ViewProvider
     
     init(viewmodel : HomeScreenViewModel, viewProvider : ViewProvider) {
@@ -57,11 +59,11 @@ struct HomeScreen: View {
     func renderCurrentWeatherInfo() -> some View {
         return VStack {
             Text(String(viewModel.screenData.currentTemperature))
-                .font(.system(size: 80))
+                .font(.system(size: screenHeight/12))
                 .foregroundColor(.white)
                 .padding()
             Text(viewModel.screenData.weatherDescription)
-                .font(.system(size: 20))
+                .font(.system(size: screenHeight/40))
                 .foregroundColor(.white)
                 .padding()
         }
@@ -72,32 +74,33 @@ struct HomeScreen: View {
             VStack {
                 Text(String(viewModel.screenData.lowTemperature))
                     .foregroundColor(.white)
+                    .font(.system(size: screenHeight/40))
                     .padding()
                 Text("Low")
                     .foregroundColor(.white)
             }
-            Divider().frame(maxHeight: 100);
             VStack {
                 Text(String(viewModel.screenData.highTemperature))
                     .foregroundColor(.white)
+                    .font(.system(size: screenHeight/40))
                     .padding()
                 Text("High")
                     .foregroundColor(.white)
             }
-        }.padding()
+        }.padding(.bottom)
     }
     
     func renderFeatures() -> some View {
         return HStack {
             Spacer()
-                renderHumidity()
+            renderHumidity()
             Spacer()
-                renderPressure()
+            renderPressure()
             Spacer()
-                renderWind()
+            renderWind()
             Spacer()
         }
-        .padding()
+        .padding(.horizontal)
     }
     
     func renderHumidity() -> some View {
@@ -106,6 +109,7 @@ struct HomeScreen: View {
                 .scaledToFit()
                 .padding()
             Text(String(viewModel.screenData.humidity))
+                .font(.system(size: screenHeight/40))
                 .foregroundColor(.white)
         }
     }
@@ -116,6 +120,7 @@ struct HomeScreen: View {
                 .scaledToFit()
                 .padding()
             Text(String(viewModel.screenData.pressure))
+                .font(.system(size: screenHeight/40))
                 .foregroundColor(.white)
         }
     }
@@ -126,6 +131,7 @@ struct HomeScreen: View {
                 .padding(.top)
                 .scaledToFit()
             Text(String(viewModel.screenData.windSpeed))
+                .font(.system(size: screenHeight/40))
                 .foregroundColor(.white)
                 .padding(.top)
         }
@@ -149,8 +155,7 @@ struct HomeScreen: View {
     func renderCityName() -> some View {
         return Text(viewModel.screenData.cityName)
             .foregroundColor(.white)
-            .font(.system(size: 20))
-            .padding()
+            .font(.system(size: screenHeight/40))
     }
 }
 
@@ -162,6 +167,6 @@ struct ContentView_Previews: PreviewProvider {
         let viewProvider = ViewProvider()
         let homeScreenViewModel = HomeScreenViewModel(repository: weatherRepository)
         
-        HomeScreen(viewmodel: homeScreenViewModel, viewProvider: viewProvider)
+        HomeScreen(viewmodel: homeScreenViewModel, viewProvider: viewProvider)        
     }
 }
