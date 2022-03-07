@@ -59,7 +59,6 @@ class HomeScreenViewModel : ObservableObject {
     }
     
     func handleGettingLocation() {
-        
         persistence.geoItemResult
             .subscribe(on: DispatchQueue.global(qos: .background))
             .receive(on: RunLoop.main)
