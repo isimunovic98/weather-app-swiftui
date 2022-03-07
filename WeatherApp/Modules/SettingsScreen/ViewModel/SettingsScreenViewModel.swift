@@ -16,8 +16,6 @@ class SettingsScreenViewModel : ObservableObject {
     @Published var pressure : Bool
     @Published var wind : Bool
     
-    
-
     let persistence : UserDefaultsManager
     
     init(persistence : UserDefaultsManager) {

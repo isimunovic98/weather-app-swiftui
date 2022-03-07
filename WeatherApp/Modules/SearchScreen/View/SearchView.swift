@@ -59,5 +59,4 @@ struct SearchView: View {
             }.listRowBackground(Color.white.opacity(0.8))
         }
     }
-    
 }

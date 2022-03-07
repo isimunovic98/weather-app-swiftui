@@ -112,7 +112,6 @@ class UserDefaultsManager {
             self.geoItemResult.send(cityHistory[0])
         }
         catch{}
-            
     }
     
     func removeCity(geoItem: GeoItem) {
@@ -126,5 +125,4 @@ class UserDefaultsManager {
         }
         catch{}
     }
-    
 }

@@ -47,15 +47,7 @@ class HomeScreenViewModel : ObservableObject {
     
     func onAppear() {
         handleGettingLocation()
-        setFeatures()
         persistence.sendFirstSignal()
-    }
-    
-    func setFeatures() {
-        let currentFeatures = persistence.fetchFeatures()
-        self.screenData.showHumidity = currentFeatures[0]
-        self.screenData.showPressure = currentFeatures[1]
-        self.screenData.showWindSpeed = currentFeatures[2]
     }
     
     func handleWeatherResponse(geoItem: GeoItem) {
