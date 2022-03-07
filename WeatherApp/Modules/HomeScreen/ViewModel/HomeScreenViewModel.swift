@@ -22,9 +22,16 @@ class HomeScreenViewModel : ObservableObject {
         var humidity : String
     }
     
+    struct Features {
+        var humidity : Bool
+        var pressure : Bool
+        var wind : Bool
+    }
+    
     @Published var isLoading : Bool
     @Published var error : Error?
     @Published var screenData : ScreenData
+    @Published var features : Features
     
     struct Coords {
         var lat : String
@@ -51,6 +58,11 @@ class HomeScreenViewModel : ObservableObject {
             pressure : "",
             humidity : ""
         )
+        self.features = Features(
+            humidity: true,
+            pressure: true,
+            wind: true
+        )
         coords = Coords(lat: "0", lng: "0")
         isLoading = true
         
@@ -73,6 +85,17 @@ class HomeScreenViewModel : ObservableObject {
     
     func startViewModel() {
         handleGettingLocation()
+        persistence.sendFirstSignal()
+        setFeatures()
+    }
+    
+    func setFeatures() {
+        let currentFeatures = persistence.fetchFeatures()
+        self.features = Features(
+            humidity: currentFeatures[0],
+            pressure: currentFeatures[1],
+            wind: currentFeatures[2]
+        )
     }
     
     func handleWeatherResponse(geoItem: GeoItem) {

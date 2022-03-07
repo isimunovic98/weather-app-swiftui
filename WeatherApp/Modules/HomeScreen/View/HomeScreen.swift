@@ -90,33 +90,45 @@ struct HomeScreen: View {
     func renderFeatures() -> some View {
         return HStack {
             Spacer()
-            VStack {
-                Image("humidity_icon")
-                    .scaledToFit()
-                    .padding()
-                Text(String(viewModel.screenData.humidity))
-                    .foregroundColor(.white)
-            }
+                renderHumidity()
             Spacer()
-            VStack {
-                Image("pressure_icon")
-                    .scaledToFit()
-                    .padding()
-                Text(String(viewModel.screenData.pressure))
-                    .foregroundColor(.white)
-            }
+                renderPressure()
             Spacer()
-            VStack {
-                Image("wind_icon")
-                    .padding(.top)
-                    .scaledToFit()
-                Text(String(viewModel.screenData.windSpeed))
-                    .foregroundColor(.white)
-                    .padding(.top)
-            }
+                renderWind()
             Spacer()
         }
         .padding()
+    }
+    
+    func renderHumidity() -> some View {
+        return VStack {
+            Image("humidity_icon")
+                .scaledToFit()
+                .padding()
+            Text(String(viewModel.screenData.humidity))
+                .foregroundColor(.white)
+        }
+    }
+    
+    func renderPressure() -> some View {
+        return VStack {
+            Image("pressure_icon")
+                .scaledToFit()
+                .padding()
+            Text(String(viewModel.screenData.pressure))
+                .foregroundColor(.white)
+        }
+    }
+    
+    func renderWind() -> some View {
+        return VStack {
+            Image("wind_icon")
+                .padding(.top)
+                .scaledToFit()
+            Text(String(viewModel.screenData.windSpeed))
+                .foregroundColor(.white)
+                .padding(.top)
+        }
     }
     
     func renderFooter() -> some View {

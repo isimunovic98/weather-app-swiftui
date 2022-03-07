@@ -64,7 +64,9 @@ class Database {
     }
         
     func sendFirstSignal() {
-        geoItemResult.send(fetchCurrentCity())
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [self] in
+            self.geoItemResult.send(fetchCurrentCity())
+        }
     }
     
     func fetchCurrentCity() -> GeoItem {

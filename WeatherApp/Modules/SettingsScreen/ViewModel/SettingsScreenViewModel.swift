@@ -15,6 +15,8 @@ class SettingsScreenViewModel : ObservableObject {
     @Published var humidity : Bool
     @Published var pressure : Bool
     @Published var wind : Bool
+    
+    
 
     let persistence : Database
     
@@ -75,5 +77,6 @@ class SettingsScreenViewModel : ObservableObject {
             break
         }
         persistence.storeFeatures(features: [humidity, pressure, wind])
+        setFeatures()
     }
 }

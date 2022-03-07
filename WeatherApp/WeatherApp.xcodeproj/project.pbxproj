@@ -149,10 +149,8 @@
 		C50E24F027D0B78A003E1ACF /* View */ = {
 			isa = PBXGroup;
 			children = (
+				C512984E27D2771400566FDF /* SubView */,
 				C50E24EC27D0B6CF003E1ACF /* SettingsScreen.swift */,
-				C50E24F227D0C732003E1ACF /* RadioButtonGroup.swift */,
-				C50E24F427D0D5D7003E1ACF /* CheckListItem.swift */,
-				C50E24F627D0D694003E1ACF /* CheckView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -163,6 +161,16 @@
 				C50E24EE27D0B786003E1ACF /* SettingsScreenViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		C512984E27D2771400566FDF /* SubView */ = {
+			isa = PBXGroup;
+			children = (
+				C50E24F227D0C732003E1ACF /* RadioButtonGroup.swift */,
+				C50E24F427D0D5D7003E1ACF /* CheckListItem.swift */,
+				C50E24F627D0D694003E1ACF /* CheckView.swift */,
+			);
+			path = SubView;
 			sourceTree = "<group>";
 		};
 		C54D8C5727CFB36C00242A69 /* HomeScreen */ = {

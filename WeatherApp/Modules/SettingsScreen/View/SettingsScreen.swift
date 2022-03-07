@@ -95,7 +95,6 @@ struct SettingsScreen: View {
                 .foregroundColor(.white)
         }.onTapGesture {
             viewModel.toggleFeature(feature: "humidity")
-            print("click")
         }
     }
     
@@ -109,6 +108,8 @@ struct SettingsScreen: View {
                 .padding()
             Text("Pressure")
                 .foregroundColor(.white)
+        }.onTapGesture {
+            viewModel.toggleFeature(feature: "pressure")
         }
     }
     
@@ -123,6 +124,8 @@ struct SettingsScreen: View {
             Text("Wind")
                 .foregroundColor(.white)
                 .padding(.top)
+        }.onTapGesture {
+            viewModel.toggleFeature(feature: "wind")
         }
     }
 }
