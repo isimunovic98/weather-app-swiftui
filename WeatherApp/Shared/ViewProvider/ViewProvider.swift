@@ -10,13 +10,13 @@ import SwiftUI
 
 class ViewProvider {
     
-    func renderErrorView(error: Error) -> some View {
+    func renderErrorView() -> some View {
         return ZStack {
             Image("body_image-thunderstorm")
                 .resizable()
                 .ignoresSafeArea()
                 .blur(radius: 3)
-            Text("Error: \(error.localizedDescription)")
+            Text("Error!")
                 .font(.system(size: 20))
                 .padding()
         }

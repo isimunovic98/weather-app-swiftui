@@ -18,9 +18,9 @@ class SettingsScreenViewModel : ObservableObject {
     
     
 
-    let persistence : Database
+    let persistence : UserDefaultsManager
     
-    init(persistence : Database) {
+    init(persistence : UserDefaultsManager) {
         self.persistence = persistence
         self.citiesNames = []
         self.cities = []

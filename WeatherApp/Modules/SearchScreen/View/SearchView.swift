@@ -19,7 +19,7 @@ struct SearchView: View {
     
     init(backgroundImage: String) {
         self.backgroundImage = backgroundImage
-        self.viewModel = SearchScreenViewModel(repository: LocationRepositoryImpl(), persistence: Database())
+        self.viewModel = SearchScreenViewModel(repository: LocationRepositoryImpl(), persistence: UserDefaultsManager())
         UITableView.appearance().backgroundColor = .white.withAlphaComponent(0)
     }
     

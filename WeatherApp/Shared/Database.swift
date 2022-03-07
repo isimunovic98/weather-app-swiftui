@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-class Database {
+class UserDefaultsManager {
     
     let defaults = UserDefaults.standard
     
@@ -64,7 +64,7 @@ class Database {
     }
         
     func sendFirstSignal() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [self] in
+        DispatchQueue.main.async{ [self] in
             self.geoItemResult.send(fetchCurrentCity())
         }
     }
@@ -109,20 +109,10 @@ class Database {
         do {
             let data = try encoder.encode(cityHistory)
             defaults.set(data, forKey: "geo")
-        }
-        catch{}
             self.geoItemResult.send(cityHistory[0])
-    }
-    
-    func storeAll(geoItems: [GeoItem]) {
-        let cityHistory = geoItems
-        do {
-            let data = try encoder.encode(cityHistory)
-            defaults.set(data, forKey: "geo")
         }
         catch{}
-        print("store all")
-        geoItemResult.send(cityHistory[0])
+            
     }
     
     func removeCity(geoItem: GeoItem) {

@@ -19,33 +19,33 @@ struct HomeScreen: View {
     }
     
     var body: some View {
-        if viewModel.error != nil {
-            viewProvider.renderErrorView(error: viewModel.error!)
-        } else {
-            if viewModel.isLoading {
-                viewProvider.renderLoadingView(loadingIndicator: viewModel.isLoading)
+        NavigationView {
+            if viewModel.error {
+                viewProvider.renderErrorView()
             } else {
-                renderContentView()
+                if viewModel.isLoading {
+                    viewProvider.renderLoadingView(loadingIndicator: viewModel.isLoading)
+                } else {
+                    renderContentView().onAppear(perform: { viewModel.onAppear() })
+                }
             }
         }
     }
     
     func renderContentView() -> some View {
-        return NavigationView {
-            ZStack{
-                renderBackgroundImage()
+        return ZStack{
+            renderBackgroundImage()
+            VStack {
+                Spacer()
+                renderCurrentWeatherInfo()
                 VStack {
-                    Spacer()
-                    renderCurrentWeatherInfo()
-                    VStack {
-                        renderCityName()
-                        renderHighLowTemperature()
-                        renderFeatures()
-                        renderFooter()
-                    }
+                    renderCityName()
+                    renderHighLowTemperature()
+                    renderFeatures()
+                    renderFooter()
                 }
-            }.navigationViewStyle(.stack)
-        }
+            }
+        }.navigationViewStyle(.stack)
     }
     
     func renderBackgroundImage() -> some View {
@@ -134,10 +134,11 @@ struct HomeScreen: View {
     func renderFooter() -> some View {
         return HStack {
             NavigationLink(destination: SettingsScreen(backgroundImage: viewModel.screenData.backgroundImage)) {
-                Image("settings_icon")
+                Image(systemName: "slider.vertical.3")
                     .resizable()
+                    .foregroundColor(.white)
                     .scaledToFit()
-                    .frame(width: UIScreen.main.bounds.width * 0.125)
+                    .frame(width: UIScreen.main.bounds.width * 0.1)
             }
             NavigationLink(destination: SearchView(backgroundImage: viewModel.screenData.backgroundImage)) {
                 SearchBarDummy()
@@ -158,10 +159,9 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         
         let weatherRepository = WeatherRepositoryImpl()
-        let persistence = Database()
         let viewProvider = ViewProvider()
-        let homeScreenViewModel = HomeScreenViewModel(repository: weatherRepository, persistence: persistence)
-
+        let homeScreenViewModel = HomeScreenViewModel(repository: weatherRepository)
+        
         HomeScreen(viewmodel: homeScreenViewModel, viewProvider: viewProvider)
     }
 }

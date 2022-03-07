@@ -7,31 +7,13 @@
 
 import Combine
 import Foundation
+import CoreImage
 
 class HomeScreenViewModel : ObservableObject {
     
-    struct ScreenData {
-        var backgroundImage : String
-        var currentTemperature : String
-        var weatherDescription : String
-        var cityName : String
-        var lowTemperature : String
-        var highTemperature : String
-        var windSpeed : String
-        var pressure : String
-        var humidity : String
-    }
-    
-    struct Features {
-        var humidity : Bool
-        var pressure : Bool
-        var wind : Bool
-    }
-    
-    @Published var isLoading : Bool
-    @Published var error : Error?
-    @Published var screenData : ScreenData
-    @Published var features : Features
+    @Published var isLoading : Bool = false
+    @Published var error : Bool = false
+    @Published var screenData : HomeScreenDomainItem
     
     struct Coords {
         var lat : String
@@ -40,37 +22,17 @@ class HomeScreenViewModel : ObservableObject {
     
     var coords : Coords
     let weatherRepository : WeatherRepository
-    let persistence : Database
-    
+    let persistence : UserDefaultsManager
     var disposebag = Set<AnyCancellable>()
     
-    init(repository : WeatherRepository, persistence : Database) {
+    init(repository : WeatherRepository) {
         self.weatherRepository = repository
-        self.persistence = persistence
-        self.screenData = ScreenData(
-            backgroundImage : "",
-            currentTemperature : "",
-            weatherDescription : "",
-            cityName : "",
-            lowTemperature : "",
-            highTemperature : "",
-            windSpeed : "",
-            pressure : "",
-            humidity : ""
-        )
-        self.features = Features(
-            humidity: true,
-            pressure: true,
-            wind: true
-        )
+        self.persistence = UserDefaultsManager()
+        self.screenData = HomeScreenDomainItem()
         coords = Coords(lat: "0", lng: "0")
-        isLoading = true
-        
-        startViewModel()
     }
     
     func handleGettingLocation() {
-        
         persistence.geoItemResult
             .subscribe(on: DispatchQueue.global(qos: .background))
             .receive(on: RunLoop.main)
@@ -83,29 +45,27 @@ class HomeScreenViewModel : ObservableObject {
             .store(in: &self.disposebag)
     }
     
-    func startViewModel() {
+    func onAppear() {
         handleGettingLocation()
-        persistence.sendFirstSignal()
         setFeatures()
+        persistence.sendFirstSignal()
     }
     
     func setFeatures() {
         let currentFeatures = persistence.fetchFeatures()
-        self.features = Features(
-            humidity: currentFeatures[0],
-            pressure: currentFeatures[1],
-            wind: currentFeatures[2]
-        )
+        self.screenData.showHumidity = currentFeatures[0]
+        self.screenData.showPressure = currentFeatures[1]
+        self.screenData.showWindSpeed = currentFeatures[2]
     }
     
     func handleWeatherResponse(geoItem: GeoItem) {
         weatherRepository.fetch(lat: geoItem.lat, lon: geoItem.lng, units: persistence.fetchMeasuringUnit(), completion: { result -> () in
             do {
                 try self.setOutput(response: result.get())
-                print("output set")
+                print("output set weather")
             }
-            catch (let caughtError) {
-                self.error = caughtError
+            catch {
+                self.error = true
                 return
             }
             self.isLoading = false
@@ -113,9 +73,10 @@ class HomeScreenViewModel : ObservableObject {
     }
     
     func setOutput(response: WeatherResponse) {
-        
+        let currentFeatures = persistence.fetchFeatures()
         let measuringUnit = persistence.fetchMeasuringUnit()
-        let newScreenData = ScreenData(
+        
+        screenData = HomeScreenDomainItem(
             backgroundImage: Handler().handleImageChoice(weather: response.weather[0].main),
             currentTemperature: (measuringUnit == "Metric") ? String(Int(response.main.temp)) + " °C" : String(Int(response.main.temp)) + " °F",
             weatherDescription: response.weather[0].weatherDescription,
@@ -124,8 +85,10 @@ class HomeScreenViewModel : ObservableObject {
             highTemperature: measuringUnit == "Metric" ? String(Int(response.main.tempMax)) + " °C" : String(Int(response.main.tempMax)) + " °F",
             windSpeed: measuringUnit == "Metric" ? String(Int(response.wind.speed)) + " km/h" : String(Int(response.wind.speed)) + " mph",
             pressure: String(response.main.pressure) + " hPa",
-            humidity: String(response.main.humidity) + " %"
+            humidity: String(response.main.humidity) + " %",
+            showWindSpeed : currentFeatures[0],
+            showPressure : currentFeatures[1],
+            showHumidity : currentFeatures[2]
         )
-        screenData = newScreenData
     }
 }

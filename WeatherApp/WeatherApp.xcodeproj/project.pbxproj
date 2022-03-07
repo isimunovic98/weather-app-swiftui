@@ -50,6 +50,7 @@
 		C5ACC76F27CE672B00B729F6 /* RestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ACC76E27CE672B00B729F6 /* RestManager.swift */; };
 		C5ACC77027CE672B00B729F6 /* RestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ACC76E27CE672B00B729F6 /* RestManager.swift */; };
 		C5B9DCCA27D170FD00832EFB /* ViewProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5B9DCC927D170FD00832EFB /* ViewProvider.swift */; };
+		C5BEDF7127D6AD8F00EA7AE9 /* HomeScreenDomainItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BEDF7027D6AD8F00EA7AE9 /* HomeScreenDomainItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -87,6 +88,7 @@
 		C5ACC76B27CE670900B729F6 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		C5ACC76E27CE672B00B729F6 /* RestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestManager.swift; sourceTree = "<group>"; };
 		C5B9DCC927D170FD00832EFB /* ViewProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewProvider.swift; sourceTree = "<group>"; };
+		C5BEDF7027D6AD8F00EA7AE9 /* HomeScreenDomainItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenDomainItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,6 +178,7 @@
 		C54D8C5727CFB36C00242A69 /* HomeScreen */ = {
 			isa = PBXGroup;
 			children = (
+				C5BEDF6F27D6AD7D00EA7AE9 /* Model */,
 				C5ACC75F27CE663500B729F6 /* ViewModel */,
 				C5ACC75E27CE662000B729F6 /* View */,
 			);
@@ -364,6 +367,14 @@
 			path = ViewProvider;
 			sourceTree = "<group>";
 		};
+		C5BEDF6F27D6AD7D00EA7AE9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C5BEDF7027D6AD8F00EA7AE9 /* HomeScreenDomainItem.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		E033F66036F47F58B45AEB71 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -519,6 +530,7 @@
 				C50E24F327D0C732003E1ACF /* RadioButtonGroup.swift in Sources */,
 				C50E24EF27D0B786003E1ACF /* SettingsScreenViewModel.swift in Sources */,
 				C57DD34627D160F20012BC03 /* WeatherRepositoryImpl.swift in Sources */,
+				C5BEDF7127D6AD8F00EA7AE9 /* HomeScreenDomainItem.swift in Sources */,
 				C50E24F727D0D694003E1ACF /* CheckView.swift in Sources */,
 				C5ACC76527CE66A900B729F6 /* Constants.swift in Sources */,
 				C54D8C6227CFD57700242A69 /* GeoItem.swift in Sources */,

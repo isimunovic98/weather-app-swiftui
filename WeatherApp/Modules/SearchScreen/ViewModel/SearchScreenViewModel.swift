@@ -13,9 +13,9 @@ class SearchScreenViewModel : ObservableObject {
     @Published var cities : [GeoItem]
     
     let locationRepository : LocationRepository
-    let persistence : Database
+    let persistence : UserDefaultsManager
     
-    init(repository : LocationRepository, persistence : Database) {
+    init(repository : LocationRepository, persistence : UserDefaultsManager) {
         self.locationRepository = repository
         self.persistence = persistence
         self.cities = []
