@@ -22,32 +22,34 @@ struct HomeScreen: View {
     
     var body: some View {
         NavigationView {
-            if viewModel.error {
-                viewProvider.renderErrorView()
+            if let error = viewModel.error {
+                viewProvider.renderErrorView(error: error)
             } else {
-                if viewModel.isLoading {
-                    viewProvider.renderLoadingView(loadingIndicator: viewModel.isLoading)
-                } else {
-                    renderContentView().onAppear(perform: { viewModel.onAppear() })
-                }
+                renderContentView()
+                    .onAppear(perform: { viewModel.onAppear() })
             }
         }
     }
     
     func renderContentView() -> some View {
-        return ZStack{
-            renderBackgroundImage()
-            VStack {
-                Spacer()
-                renderCurrentWeatherInfo()
+        ZStack{
+            if viewModel.isLoading {
+            viewProvider.renderLoadingView(loadingIndicator: viewModel.isLoading)
+        } else {
+            ZStack {
+                renderBackgroundImage()
                 VStack {
-                    renderCityName()
-                    renderHighLowTemperature()
-                    renderFeatures()
-                    renderFooter()
+                    Spacer()
+                    renderCurrentWeatherInfo()
+                    VStack {
+                        renderCityName()
+                        renderHighLowTemperature()
+                        renderFeatures()
+                        renderFooter()
+                    }
                 }
-            }
-        }.navigationViewStyle(.stack)
+            }.navigationViewStyle(.stack)
+        }}
     }
     
     func renderBackgroundImage() -> some View {

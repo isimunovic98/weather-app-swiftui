@@ -7,60 +7,40 @@
 
 import Combine
 import Foundation
-import CoreImage
 
 class HomeScreenViewModel : ObservableObject {
     
     @Published var isLoading : Bool = false
-    @Published var error : Bool = false
+    @Published var error : Error?
     @Published var screenData : HomeScreenDomainItem
-    
-    struct Coords {
-        var lat : String
-        var lng : String
-    }
-    
-    var coords : Coords
+        
     let weatherRepository : WeatherRepository
     let persistence : UserDefaultsManager
-    var disposebag = Set<AnyCancellable>()
     
     init(repository : WeatherRepository) {
         self.weatherRepository = repository
         self.persistence = UserDefaultsManager()
         self.screenData = HomeScreenDomainItem()
-        coords = Coords(lat: "0", lng: "0")
-    }
-    
-    func handleGettingLocation() {
-        persistence.geoItemResult
-            .subscribe(on: DispatchQueue.global(qos: .background))
-            .receive(on: RunLoop.main)
-            .sink(receiveValue: { [unowned self] geoItem in
-                self.coords.lng = geoItem.lng
-                self.coords.lat = geoItem.lat
-                print("persistence changed")
-                handleWeatherResponse(geoItem: geoItem)
-            })
-            .store(in: &self.disposebag)
     }
     
     func onAppear() {
-        handleGettingLocation()
-        persistence.sendFirstSignal()
+        handleWeatherResponse()
     }
     
-    func handleWeatherResponse(geoItem: GeoItem) {
-        weatherRepository.fetch(lat: geoItem.lat, lon: geoItem.lng, units: persistence.fetchMeasuringUnit(), completion: { result -> () in
-            do {
-                try self.setOutput(response: result.get())
-                print("output set weather")
-            }
-            catch {
-                self.error = true
-                return
-            }
+    func handleWeatherResponse() {
+        self.isLoading = true
+        let current = persistence.fetchCurrentCity()
+        let lat = current.lat
+        let lng = current.lng
+        let units = persistence.fetchMeasuringUnit()
+        weatherRepository.fetch(lat: lat, lon: lng, units: units, completion: { result -> () in
             self.isLoading = false
+            switch result {
+            case .success(let response):
+                self.setOutput(response: response)
+            case.failure(let error):
+                self.error = error
+            }
         })
     }
     
