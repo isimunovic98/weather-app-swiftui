@@ -14,8 +14,6 @@ class UserDefaultsManager {
     
     let encoder = JSONEncoder()
     let decoder = JSONDecoder()
-    
-    let geoItemResult = PassthroughSubject<GeoItem, Never>()
 
     func fetchFeatures() -> [Bool] {
         var feaures : [Bool]
@@ -62,12 +60,6 @@ class UserDefaultsManager {
         }
         catch{}
     }
-        
-    func sendFirstSignal() {
-        DispatchQueue.main.async{ [self] in
-            self.geoItemResult.send(fetchCurrentCity())
-        }
-    }
     
     func fetchCurrentCity() -> GeoItem {
         var currentCity = [GeoItem]()
@@ -104,12 +96,12 @@ class UserDefaultsManager {
     func storeNewCity(geoItem: GeoItem) {
         let currentCity = geoItem
         var cityHistory = fetchCityHistory()
+        cityHistory = cityHistory.filter({ $0.name != currentCity.name })
         cityHistory.insert(currentCity, at: 0)
         
         do {
             let data = try encoder.encode(cityHistory)
             defaults.set(data, forKey: "geo")
-            self.geoItemResult.send(cityHistory[0])
         }
         catch{}
     }
