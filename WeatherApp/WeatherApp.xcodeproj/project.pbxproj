@@ -22,9 +22,9 @@
 		C54D8C5A27CFB98200242A69 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54D8C5927CFB98200242A69 /* SearchView.swift */; };
 		C54D8C5C27CFC1C300242A69 /* SearchbarDummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54D8C5B27CFC1C300242A69 /* SearchbarDummy.swift */; };
 		C54D8C5E27CFC5BE00242A69 /* SearchScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54D8C5D27CFC5BE00242A69 /* SearchScreenViewModel.swift */; };
-		C54D8C6027CFD50400242A69 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54D8C5F27CFD50400242A69 /* Database.swift */; };
+		C54D8C6027CFD50400242A69 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54D8C5F27CFD50400242A69 /* UserDefaultsManager.swift */; };
 		C54D8C6227CFD57700242A69 /* GeoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54D8C6127CFD57700242A69 /* GeoItem.swift */; };
-		C54D8C6327CFF43800242A69 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54D8C5F27CFD50400242A69 /* Database.swift */; };
+		C54D8C6327CFF43800242A69 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54D8C5F27CFD50400242A69 /* UserDefaultsManager.swift */; };
 		C55E8CE027D005EA008BBB62 /* SearchbarDummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54D8C5B27CFC1C300242A69 /* SearchbarDummy.swift */; };
 		C57904E427CD79A8006971BA /* WeatherAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C57904D427CD79A6006971BA /* WeatherAppApp.swift */; };
 		C57904E527CD79A8006971BA /* WeatherAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C57904D427CD79A6006971BA /* WeatherAppApp.swift */; };
@@ -69,7 +69,7 @@
 		C54D8C5927CFB98200242A69 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		C54D8C5B27CFC1C300242A69 /* SearchbarDummy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchbarDummy.swift; sourceTree = "<group>"; };
 		C54D8C5D27CFC5BE00242A69 /* SearchScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchScreenViewModel.swift; sourceTree = "<group>"; };
-		C54D8C5F27CFD50400242A69 /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
+		C54D8C5F27CFD50400242A69 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		C54D8C6127CFD57700242A69 /* GeoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoItem.swift; sourceTree = "<group>"; };
 		C57904D427CD79A6006971BA /* WeatherAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherAppApp.swift; sourceTree = "<group>"; };
 		C57904D527CD79A6006971BA /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
@@ -254,7 +254,7 @@
 			children = (
 				C5ACC76A27CE66FC00B729F6 /* Networking */,
 				C57DD34227D14DBA0012BC03 /* Utils */,
-				C54D8C5F27CFD50400242A69 /* Database.swift */,
+				C54D8C5F27CFD50400242A69 /* UserDefaultsManager.swift */,
 				C5ACC76427CE66A900B729F6 /* Constants.swift */,
 			);
 			path = Shared;
@@ -511,7 +511,7 @@
 				C54D8C6227CFD57700242A69 /* GeoItem.swift in Sources */,
 				C50E24F527D0D5D7003E1ACF /* CheckListItem.swift in Sources */,
 				C532E72527CE69AD00CBEE79 /* SerializationManager.swift in Sources */,
-				C54D8C6027CFD50400242A69 /* Database.swift in Sources */,
+				C54D8C6027CFD50400242A69 /* UserDefaultsManager.swift in Sources */,
 				C532E72827CE6C3900CBEE79 /* GeoResponse.swift in Sources */,
 				C502F2BB27CE9C780078F260 /* WeatherResponse.swift in Sources */,
 				C54D8C5A27CFB98200242A69 /* SearchView.swift in Sources */,
@@ -540,7 +540,7 @@
 				C502F2BC27CE9C780078F260 /* WeatherResponse.swift in Sources */,
 				C5ACC76D27CE670900B729F6 /* NetworkError.swift in Sources */,
 				C57904E727CD79A8006971BA /* HomeScreen.swift in Sources */,
-				C54D8C6327CFF43800242A69 /* Database.swift in Sources */,
+				C54D8C6327CFF43800242A69 /* UserDefaultsManager.swift in Sources */,
 				C5ACC76227CE664800B729F6 /* HomeScreenViewModel.swift in Sources */,
 				C5BEDF7327D6BEDF00EA7AE9 /* GeoItem.swift in Sources */,
 				C57904E527CD79A8006971BA /* WeatherAppApp.swift in Sources */,
