@@ -9,9 +9,6 @@ import SwiftUI
 
 struct SearchBarDummy: View {
     
-    @State private var isEditing = false
-    
-    
     var body: some View {
         HStack {
             TextField("Search ...", text: .constant("Search..."))
@@ -26,7 +23,6 @@ struct SearchBarDummy: View {
                             .foregroundColor(.gray)
                             .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                             .padding(.leading, 8)
-                        
                     }
                 )
                 .padding(.horizontal, 10)

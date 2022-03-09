@@ -140,6 +140,9 @@ struct HomeScreen: View {
     }
     
     func renderFooter() -> some View {
+        let locationRepository = LocationRepositoryImpl()
+        let searchScreenViewModel = SearchScreenViewModel(repository: locationRepository)
+        
         return HStack {
             NavigationLink(destination: SettingsScreen(backgroundImage: viewModel.screenData.backgroundImage)) {
                 Image(systemName: "slider.vertical.3")
@@ -148,7 +151,11 @@ struct HomeScreen: View {
                     .scaledToFit()
                     .frame(width: UIScreen.main.bounds.width * 0.1)
             }
-            NavigationLink(destination: SearchView(backgroundImage: viewModel.screenData.backgroundImage)) {
+            NavigationLink (
+                destination: SearchView (
+                    backgroundImage: viewModel.screenData.backgroundImage,
+                    viewModel: searchScreenViewModel)
+            ) {
                 SearchBarDummy()
             }
         }.padding()

@@ -17,13 +17,17 @@ struct SearchView: View {
     
     let backgroundImage : String
     
-    init(backgroundImage: String) {
+    init(backgroundImage: String, viewModel: SearchScreenViewModel) {
         self.backgroundImage = backgroundImage
-        self.viewModel = SearchScreenViewModel(repository: LocationRepositoryImpl(), persistence: UserDefaultsManager())
+        self.viewModel = viewModel
         UITableView.appearance().backgroundColor = .white.withAlphaComponent(0)
     }
     
     var body : some View {
+        renderContentView()
+    }
+    
+    func renderContentView() -> some View {
         ZStack {
             renderBackgroundImage()
             VStack{
@@ -42,10 +46,12 @@ struct SearchView: View {
     }
     
     func renderSearchBar() -> some View {
-        return SearchBar(text: $text)
-            .onSubmit {
-                viewModel.startViewmodel(cityName: text)
-            }
+        let searchBar = SearchBar(text: $text)
+        return searchBar
+            .onChange(of: text, perform: { newCity in
+                viewModel.handleGettingLocation(cityName: newCity)
+            })
+            .onAppear()
     }
     
     func renderList() -> some View {
@@ -55,7 +61,6 @@ struct SearchView: View {
                     viewModel.selectedCity(geoItem: city)
                     self.mode.wrappedValue.dismiss()
                 }
-                
             }.listRowBackground(Color.white.opacity(0.8))
         }
     }

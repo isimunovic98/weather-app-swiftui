@@ -49,7 +49,7 @@ class HomeScreenViewModel : ObservableObject {
         let measuringUnit = persistence.fetchMeasuringUnit()
         
         screenData = HomeScreenDomainItem(
-            backgroundImage: Handler().handleImageChoice(weather: response.weather[0].main),
+            backgroundImage: Handler.handleImageChoice(weather: response.weather[0].main),
             currentTemperature: (measuringUnit == "Metric") ? String(Int(response.main.temp)) + " °C" : String(Int(response.main.temp)) + " °F",
             weatherDescription: response.weather[0].weatherDescription,
             cityName: response.name,
