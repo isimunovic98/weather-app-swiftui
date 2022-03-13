@@ -17,6 +17,7 @@ struct SearchBarDummy: View {
                 .background(Color(.systemGray6))
                 .cornerRadius(8)
                 .foregroundColor(.gray)
+                .disabled(true)
                 .overlay(
                     HStack {
                         Image(systemName: "magnifyingglass")
