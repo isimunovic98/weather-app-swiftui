@@ -8,15 +8,25 @@
 import SwiftUI
 
 struct CheckView: View {
-    @State var isChecked:Bool = false
-    var title:String
-    func toggle(){isChecked = !isChecked}
+    
+    @State var isChecked : Bool
+    
+    var title : String
+    
+    var action : () -> ()
+    
+    func toggle() {
+        isChecked.toggle()
+        action()
+    }
+    
     var body: some View {
-        HStack{
+        HStack {
             Button(action: toggle) {
                 Image(systemName: isChecked ? "checkmark.square" : "square")
             }
             Text(title)
+                .foregroundColor(.white)
         }
     }
 }

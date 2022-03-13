@@ -18,11 +18,16 @@ struct SettingsScreen: View {
     
     init(backgroundImage: String) {
         self.backgroundImage = backgroundImage
-        self.viewModel = SettingsScreenViewModel(persistence: UserDefaultsManager())
+        self.viewModel = SettingsScreenViewModel()
         UITableView.appearance().backgroundColor = .white.withAlphaComponent(0)
     }
     
     var body : some View {
+        renderContentView()
+            .onAppear(perform: {viewModel.onAppear()})
+    }
+    
+    func renderContentView() -> some View {
         ZStack {
             renderBackgroundImage()
             VStack{
@@ -38,7 +43,7 @@ struct SettingsScreen: View {
                     Spacer()
                 }
             }
-        }.onAppear(perform: {viewModel.startViewModel()})
+        }
     }
     
     func renderBackgroundImage() -> some View {
@@ -58,7 +63,7 @@ struct SettingsScreen: View {
                 Spacer()
             }
             List {
-                ForEach(viewModel.cities , id: \.self) { city in
+                ForEach(viewModel.screenData.cities , id: \.self) { city in
                     HStack{
                         Text(city.name).onTapGesture {
                             viewModel.selectedCity(geoItem: city)
@@ -73,7 +78,6 @@ struct SettingsScreen: View {
                     }
                 }.listRowBackground(Color.white.opacity(0.8))
             }
-            
         }
     }
     
@@ -87,45 +91,43 @@ struct SettingsScreen: View {
     
     func renderHumidity() -> some View {
         return VStack {
-            CheckView(isChecked: viewModel.humidity, title: "")
+            CheckView(
+                isChecked: viewModel.screenData.humidity,
+                title: "Humidity", action: {
+                    viewModel.toggleFeature(feature: "humidity")
+                }
+            )
             Image("humidity_icon")
                 .scaledToFit()
                 .padding()
-            Text("Humidity")
-                .foregroundColor(.white)
-        }.onTapGesture {
-            viewModel.toggleFeature(feature: "humidity")
         }
     }
     
     func renderPressure() -> some View {
         return VStack {
-            CheckView(isChecked: viewModel.pressure, title: "").onTapGesture {
-                viewModel.toggleFeature(feature: "pressure")
-            }
+            CheckView(
+                isChecked: viewModel.screenData.pressure,
+                title: "Pressure", action: {
+                    viewModel.toggleFeature(feature: "pressure")
+                }
+            )
             Image("pressure_icon")
                 .scaledToFit()
                 .padding()
-            Text("Pressure")
-                .foregroundColor(.white)
-        }.onTapGesture {
-            viewModel.toggleFeature(feature: "pressure")
         }
     }
     
     func renderWind() -> some View {
         return VStack {
-            CheckView(isChecked: viewModel.wind, title: "").onTapGesture {
-                viewModel.toggleFeature(feature: "wind")
-            }
+            CheckView(
+                isChecked: viewModel.screenData.wind,
+                title: "Wind speed", action: {
+                    viewModel.toggleFeature(feature: "wind")
+                }
+            )
             Image("wind_icon")
-                .padding(.top)
+                .padding(.vertical)
                 .scaledToFit()
-            Text("Wind")
-                .foregroundColor(.white)
-                .padding(.top)
-        }.onTapGesture {
-            viewModel.toggleFeature(feature: "wind")
         }
     }
 }

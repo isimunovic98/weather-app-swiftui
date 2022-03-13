@@ -45,22 +45,21 @@ class HomeScreenViewModel : ObservableObject {
     }
     
     func setOutput(response: WeatherResponse) {
-        let currentFeatures = persistence.fetchFeatures()
         let measuringUnit = persistence.fetchMeasuringUnit()
         
         screenData = HomeScreenDomainItem(
             backgroundImage: Handler.handleImageChoice(weather: response.weather[0].main),
             currentTemperature: (measuringUnit == "Metric") ? String(Int(response.main.temp)) + " °C" : String(Int(response.main.temp)) + " °F",
-            weatherDescription: response.weather[0].weatherDescription,
+            weatherDescription: response.weather[0].weatherDescription.capitalized + ".",
             cityName: response.name,
             lowTemperature: measuringUnit == "Metric" ? String(Int(response.main.tempMin)) + " °C" : String(Int(response.main.tempMin)) + " °F",
             highTemperature: measuringUnit == "Metric" ? String(Int(response.main.tempMax)) + " °C" : String(Int(response.main.tempMax)) + " °F",
             windSpeed: measuringUnit == "Metric" ? String(Int(response.wind.speed)) + " km/h" : String(Int(response.wind.speed)) + " mph",
             pressure: String(response.main.pressure) + " hPa",
-            humidity: String(response.main.humidity) + " %",
-            showWindSpeed : currentFeatures[0],
-            showPressure : currentFeatures[1],
-            showHumidity : currentFeatures[2]
+            humidity: String(response.main.humidity) + "%",
+            showWindSpeed : persistence.fetchWind(),
+            showPressure : persistence.fetchPressure(),
+            showHumidity : persistence.fetchHumidity()
         )
     }
 }

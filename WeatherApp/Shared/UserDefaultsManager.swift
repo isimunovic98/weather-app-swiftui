@@ -14,28 +14,29 @@ class UserDefaultsManager {
     
     let encoder = JSONEncoder()
     let decoder = JSONDecoder()
-
-    func fetchFeatures() -> [Bool] {
-        var feaures : [Bool]
-        do {
-            guard let decoded = defaults.data(forKey: "features")
-            else {
-                return [true, true, true]
-            }
-            feaures = try decoder.decode([Bool].self, from: decoded)
-        }
-        catch {
-            return [true, true, true]
-        }
-        return feaures
+    
+    func fetchHumidity() -> Bool {
+        return defaults.bool(forKey: "humidity")
     }
     
-    func storeFeatures(features: [Bool]) {
-        do {
-            let data = try encoder.encode(features)
-            defaults.set(data, forKey: "features")
-        }
-        catch{}
+    func fetchPressure() -> Bool {
+        return defaults.bool(forKey: "pressure")
+    }
+    
+    func fetchWind() -> Bool {
+        return defaults.bool(forKey: "wind")
+    }
+    
+    func storeHumidity(value: Bool) {
+        defaults.set(value, forKey: "humidity")
+    }
+    
+    func storePressure(value: Bool) {
+        defaults.set(value, forKey: "pressure")
+    }
+    
+    func storeWind(value: Bool) {
+        defaults.set(value, forKey: "wind")
     }
     
     func fetchMeasuringUnit() -> String {
