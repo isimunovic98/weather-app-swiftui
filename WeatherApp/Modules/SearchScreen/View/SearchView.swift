@@ -51,7 +51,6 @@ struct SearchView: View {
             .onChange(of: text, perform: { newCity in
                 viewModel.handleGettingLocation(cityName: newCity)
             })
-            .onAppear()
     }
     
     func renderList() -> some View {

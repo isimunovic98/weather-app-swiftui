@@ -63,7 +63,7 @@ struct RadioButton: View {
                     .modifier(ColorInvert())
                 Text(id)
                     .font(Font.system(size: textSize))
-                Spacer()
+                    .padding(.trailing)
             }.foregroundColor(self.color)
         }
         .foregroundColor(self.color)
@@ -79,7 +79,7 @@ struct RadioButtonGroup: View {
     let callback: (String) -> ()
 
     var body: some View {
-        VStack {
+        HStack(alignment: .center) {
             ForEach(0..<items.count) { index in
                 RadioButton(self.items[index], callback: self.radioGroupCallback, selectedID: self.selectedId)
             }
@@ -94,17 +94,4 @@ struct RadioButtonGroup: View {
 //    func setItems(items : [String]) {
 //        self.items = items
 //    }
-}
-
-struct ContentView: View {
-    var body: some View {
-        HStack {
-            Text("Example")
-                .font(Font.headline)
-                .padding()
-            RadioButtonGroup(items: ["Rome", "London", "Paris", "Berlin", "New York"], selectedId: "London") { selected in
-                print("Selected is: \(selected)")
-            }
-        }.padding()
-    }
 }
