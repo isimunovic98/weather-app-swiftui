@@ -13,7 +13,6 @@
 		C50E24ED27D0B6CF003E1ACF /* SettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50E24EC27D0B6CF003E1ACF /* SettingsScreen.swift */; };
 		C50E24EF27D0B786003E1ACF /* SettingsScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50E24EE27D0B786003E1ACF /* SettingsScreenViewModel.swift */; };
 		C50E24F327D0C732003E1ACF /* RadioButtonGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50E24F227D0C732003E1ACF /* RadioButtonGroup.swift */; };
-		C50E24F527D0D5D7003E1ACF /* CheckListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50E24F427D0D5D7003E1ACF /* CheckListItem.swift */; };
 		C50E24F727D0D694003E1ACF /* CheckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50E24F627D0D694003E1ACF /* CheckView.swift */; };
 		C532E72527CE69AD00CBEE79 /* SerializationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C532E72427CE69AD00CBEE79 /* SerializationManager.swift */; };
 		C532E72627CE69AD00CBEE79 /* SerializationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C532E72427CE69AD00CBEE79 /* SerializationManager.swift */; };
@@ -26,6 +25,7 @@
 		C54D8C6227CFD57700242A69 /* GeoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54D8C6127CFD57700242A69 /* GeoItem.swift */; };
 		C54D8C6327CFF43800242A69 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54D8C5F27CFD50400242A69 /* UserDefaultsManager.swift */; };
 		C55E8CE027D005EA008BBB62 /* SearchbarDummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54D8C5B27CFC1C300242A69 /* SearchbarDummy.swift */; };
+		C569FB5C27DD471D00533AF0 /* SettingsScreenDomainItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C569FB5B27DD471D00533AF0 /* SettingsScreenDomainItem.swift */; };
 		C57904E427CD79A8006971BA /* WeatherAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C57904D427CD79A6006971BA /* WeatherAppApp.swift */; };
 		C57904E527CD79A8006971BA /* WeatherAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C57904D427CD79A6006971BA /* WeatherAppApp.swift */; };
 		C57904E627CD79A8006971BA /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C57904D527CD79A6006971BA /* HomeScreen.swift */; };
@@ -62,7 +62,6 @@
 		C50E24EC27D0B6CF003E1ACF /* SettingsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreen.swift; sourceTree = "<group>"; };
 		C50E24EE27D0B786003E1ACF /* SettingsScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreenViewModel.swift; sourceTree = "<group>"; };
 		C50E24F227D0C732003E1ACF /* RadioButtonGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButtonGroup.swift; sourceTree = "<group>"; };
-		C50E24F427D0D5D7003E1ACF /* CheckListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListItem.swift; sourceTree = "<group>"; };
 		C50E24F627D0D694003E1ACF /* CheckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckView.swift; sourceTree = "<group>"; };
 		C532E72427CE69AD00CBEE79 /* SerializationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SerializationManager.swift; sourceTree = "<group>"; };
 		C532E72727CE6C3900CBEE79 /* GeoResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoResponse.swift; sourceTree = "<group>"; };
@@ -71,6 +70,7 @@
 		C54D8C5D27CFC5BE00242A69 /* SearchScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchScreenViewModel.swift; sourceTree = "<group>"; };
 		C54D8C5F27CFD50400242A69 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		C54D8C6127CFD57700242A69 /* GeoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoItem.swift; sourceTree = "<group>"; };
+		C569FB5B27DD471D00533AF0 /* SettingsScreenDomainItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreenDomainItem.swift; sourceTree = "<group>"; };
 		C57904D427CD79A6006971BA /* WeatherAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherAppApp.swift; sourceTree = "<group>"; };
 		C57904D527CD79A6006971BA /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
 		C57904D627CD79A7006971BA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -141,6 +141,7 @@
 		C50E24EB27D0B6BB003E1ACF /* SettingsScreen */ = {
 			isa = PBXGroup;
 			children = (
+				C569FB5A27DD470600533AF0 /* Model */,
 				C50E24F127D0B792003E1ACF /* ViewModel */,
 				C50E24F027D0B78A003E1ACF /* View */,
 			);
@@ -168,7 +169,6 @@
 			isa = PBXGroup;
 			children = (
 				C50E24F227D0C732003E1ACF /* RadioButtonGroup.swift */,
-				C50E24F427D0D5D7003E1ACF /* CheckListItem.swift */,
 				C50E24F627D0D694003E1ACF /* CheckView.swift */,
 			);
 			path = SubView;
@@ -234,6 +234,14 @@
 				C5ACC75B27CE4A8100B729F6 /* Searchbar.swift */,
 			);
 			path = SubView;
+			sourceTree = "<group>";
+		};
+		C569FB5A27DD470600533AF0 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C569FB5B27DD471D00533AF0 /* SettingsScreenDomainItem.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		C57904CE27CD79A6006971BA = {
@@ -503,13 +511,13 @@
 				C57DD34827D163C90012BC03 /* WeatherRepository.swift in Sources */,
 				C54D8C5E27CFC5BE00242A69 /* SearchScreenViewModel.swift in Sources */,
 				C50E24F327D0C732003E1ACF /* RadioButtonGroup.swift in Sources */,
+				C569FB5C27DD471D00533AF0 /* SettingsScreenDomainItem.swift in Sources */,
 				C50E24EF27D0B786003E1ACF /* SettingsScreenViewModel.swift in Sources */,
 				C57DD34627D160F20012BC03 /* WeatherRepositoryImpl.swift in Sources */,
 				C5BEDF7127D6AD8F00EA7AE9 /* HomeScreenDomainItem.swift in Sources */,
 				C50E24F727D0D694003E1ACF /* CheckView.swift in Sources */,
 				C5ACC76527CE66A900B729F6 /* Constants.swift in Sources */,
 				C54D8C6227CFD57700242A69 /* GeoItem.swift in Sources */,
-				C50E24F527D0D5D7003E1ACF /* CheckListItem.swift in Sources */,
 				C532E72527CE69AD00CBEE79 /* SerializationManager.swift in Sources */,
 				C54D8C6027CFD50400242A69 /* UserDefaultsManager.swift in Sources */,
 				C532E72827CE6C3900CBEE79 /* GeoResponse.swift in Sources */,

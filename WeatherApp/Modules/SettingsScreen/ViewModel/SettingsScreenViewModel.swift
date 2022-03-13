@@ -7,40 +7,35 @@
 
 import Combine
 import Foundation
+import SwiftUI
 
 class SettingsScreenViewModel : ObservableObject {
-
-    @Published var citiesNames : [String]
-    @Published var cities : [GeoItem]
-    @Published var humidity : Bool
-    @Published var pressure : Bool
-    @Published var wind : Bool
+    
+    @Published var screenData : SettingsScreenDomainItem
     
     let persistence : UserDefaultsManager
     
-    init(persistence : UserDefaultsManager) {
-        self.persistence = persistence
-        self.citiesNames = []
-        self.cities = []
-        self.humidity = true
-        self.pressure = true
-        self.wind = true
+    init() {
+        self.persistence = UserDefaultsManager()
+        self.screenData = SettingsScreenDomainItem(
+            cities: [],
+            humidity: persistence.fetchHumidity(),
+            pressure: persistence.fetchPressure(),
+            wind: persistence.fetchWind())
     }
-        
+    
     func handleGettingLocationHistory() {
         let cityHistory = persistence.fetchCityHistory()
         setScreenData(from: cityHistory)
-        setFeatures()
     }
     
     func setFeatures() {
-        let features = persistence.fetchFeatures()
-        humidity = features[0]
-        pressure = features[1]
-        wind = features[2]
+        screenData.humidity = persistence.fetchHumidity()
+        screenData.pressure = persistence.fetchPressure()
+        screenData.wind = persistence.fetchWind()
     }
     
-    func startViewModel() {
+    func onAppear() {
         handleGettingLocationHistory()
     }
     
@@ -55,8 +50,8 @@ class SettingsScreenViewModel : ObservableObject {
     }
     
     func setScreenData(from input: [GeoItem]) {
-        cities = input
-        citiesNames = input.map({ $0.name })
+        screenData.cities = input
+        setFeatures()
     }
     
     func selectMeasuringUnit(unit: String) {
@@ -66,15 +61,16 @@ class SettingsScreenViewModel : ObservableObject {
     func toggleFeature(feature: String) {
         switch feature {
         case "humidity":
-            humidity.toggle()
+            screenData.humidity.toggle()
+            persistence.storeHumidity(value: screenData.humidity)
         case "pressure":
-            pressure.toggle()
+            screenData.pressure.toggle()
+            persistence.storePressure(value: screenData.pressure)
         case "wind":
-            wind.toggle()
+            screenData.wind.toggle()
+            persistence.storeWind(value: screenData.wind)
         default:
             break
         }
-        persistence.storeFeatures(features: [humidity, pressure, wind])
-        setFeatures()
     }
 }
