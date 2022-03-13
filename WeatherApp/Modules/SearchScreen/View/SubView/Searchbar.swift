@@ -6,15 +6,15 @@
 //
 
 import SwiftUI
+import Introspect
 
 struct SearchBar: View {
-    @Binding var text: String
+    @Binding var text : String
     
     @State private var isEditing = false
     
     var body: some View {
         HStack {
-            
             TextField("Search ...", text: $text)
                 .padding(7)
                 .padding(.horizontal, 25)
@@ -30,7 +30,6 @@ struct SearchBar: View {
                         if isEditing {
                             Button(action: {
                                 self.text = ""
-                                print(self.$text)
                             }) {
                                 Image(systemName: "multiply.circle.fill")
                                     .foregroundColor(.gray)
@@ -43,6 +42,12 @@ struct SearchBar: View {
                 .onTapGesture {
                     self.isEditing = true
                 }
+            
+                .introspectTextField(customize: { textField in
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
+                        textField.becomeFirstResponder()
+                    }
+                })
         }
     }
 }
