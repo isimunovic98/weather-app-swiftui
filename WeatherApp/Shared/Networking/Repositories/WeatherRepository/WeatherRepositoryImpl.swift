@@ -10,7 +10,7 @@ import Foundation
 class WeatherRepositoryImpl : WeatherRepository {
     
     func fetch(lat: String, lon: String, units: String, completion: @escaping (Result<WeatherResponse, NetworkError>) -> ()) {
-        RestManager.fetch(url: "https://api.openweathermap.org/data/2.5/weather?lat=\(lat)&lon=\(lon)&units=\(units)&appid=\(Constants.APIKEY)", completionHandler: completion)
+        RestManager.fetch(url: RestEndpoints.weather(lat: lat, lng: lon, units: units).endpoint(), completionHandler: completion)
     }
     
     

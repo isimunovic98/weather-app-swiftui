@@ -2,6 +2,21 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>asdf</string>
+			<key>WEATHER_BASE_URL</key>
+			<string>asddsadsad</string>
+		</dict>
+	</array>
+	<key>GEO_BASE_URL</key>
+	<string>http://api.geonames.org/searchJSON?maxRows=10&amp;lang=en&amp;</string>
+	<key>GEO_USERNAME</key>
+	<string>domagojbu</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSExceptionDomains</key>
@@ -15,5 +30,9 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>WEATHER_API_KEY</key>
+	<string>95f7b6c15f8d7474dbef5f9b97033305</string>
+	<key>WEATHER_BASE_URL</key>
+	<string>https://api.openweathermap.org/data/2.5/weather?</string>
 </dict>
 </plist>
