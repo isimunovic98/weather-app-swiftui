@@ -13,17 +13,14 @@ struct HomeScreen: View {
     
     let screenHeight = UIScreen.main.bounds.height
     
-    let viewProvider : ViewProvider
-    
-    init(viewmodel : HomeScreenViewModel, viewProvider : ViewProvider) {
+    init(viewmodel : HomeScreenViewModel) {
         self.viewModel = viewmodel
-        self.viewProvider = viewProvider
     }
     
     var body: some View {
         NavigationView {
             if let error = viewModel.error {
-                viewProvider.renderErrorView(error: error)
+                ErrorView(error: error)
             } else {
                 renderContentView()
                     .onAppear(perform: { viewModel.onAppear() })
@@ -183,7 +180,6 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         
         let weatherRepository = WeatherRepositoryImpl()
-        let viewProvider = ViewProvider()
         let homeScreenViewModel = HomeScreenViewModel(repository: weatherRepository)
         
         HomeScreen(viewmodel: homeScreenViewModel, viewProvider: viewProvider)
