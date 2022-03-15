@@ -48,10 +48,8 @@
 		C5ACC76D27CE670900B729F6 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ACC76B27CE670900B729F6 /* NetworkError.swift */; };
 		C5ACC76F27CE672B00B729F6 /* RestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ACC76E27CE672B00B729F6 /* RestManager.swift */; };
 		C5ACC77027CE672B00B729F6 /* RestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ACC76E27CE672B00B729F6 /* RestManager.swift */; };
-		C5B9DCCA27D170FD00832EFB /* ViewProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5B9DCC927D170FD00832EFB /* ViewProvider.swift */; };
 		C5BEDF7127D6AD8F00EA7AE9 /* HomeScreenDomainItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BEDF7027D6AD8F00EA7AE9 /* HomeScreenDomainItem.swift */; };
 		C5BEDF7327D6BEDF00EA7AE9 /* GeoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54D8C6127CFD57700242A69 /* GeoItem.swift */; };
-		C5BEDF7427D6BF3A00EA7AE9 /* ViewProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5B9DCC927D170FD00832EFB /* ViewProvider.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -87,7 +85,6 @@
 		C5ACC76727CE66CF00B729F6 /* LocationRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationRepository.swift; sourceTree = "<group>"; };
 		C5ACC76B27CE670900B729F6 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		C5ACC76E27CE672B00B729F6 /* RestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestManager.swift; sourceTree = "<group>"; };
-		C5B9DCC927D170FD00832EFB /* ViewProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewProvider.swift; sourceTree = "<group>"; };
 		C5BEDF7027D6AD8F00EA7AE9 /* HomeScreenDomainItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenDomainItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -222,7 +219,6 @@
 		C55E8CDF27D005E1008BBB62 /* SubView */ = {
 			isa = PBXGroup;
 			children = (
-				C5B9DCC927D170FD00832EFB /* ViewProvider.swift */,
 				C54D8C5B27CFC1C300242A69 /* SearchbarDummy.swift */,
 			);
 			path = SubView;
@@ -260,6 +256,8 @@
 		C57904D327CD79A6006971BA /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				C56DB72727E0B33800F1A510 /* ErrorScreen */,
+				C56DB72627E0B31E00F1A510 /* LoaderScreen */,
 				C5ACC76A27CE66FC00B729F6 /* Networking */,
 				C57DD34227D14DBA0012BC03 /* Utils */,
 				C54D8C5F27CFD50400242A69 /* UserDefaultsManager.swift */,
@@ -514,6 +512,7 @@
 				C569FB5C27DD471D00533AF0 /* SettingsScreenDomainItem.swift in Sources */,
 				C50E24EF27D0B786003E1ACF /* SettingsScreenViewModel.swift in Sources */,
 				C57DD34627D160F20012BC03 /* WeatherRepositoryImpl.swift in Sources */,
+				C56DB72B27E0B3E900F1A510 /* ErrorView.swift in Sources */,
 				C5BEDF7127D6AD8F00EA7AE9 /* HomeScreenDomainItem.swift in Sources */,
 				C50E24F727D0D694003E1ACF /* CheckView.swift in Sources */,
 				C5ACC76527CE66A900B729F6 /* Constants.swift in Sources */,
@@ -524,7 +523,7 @@
 				C502F2BB27CE9C780078F260 /* WeatherResponse.swift in Sources */,
 				C54D8C5A27CFB98200242A69 /* SearchView.swift in Sources */,
 				C5ACC76C27CE670900B729F6 /* NetworkError.swift in Sources */,
-				C5B9DCCA27D170FD00832EFB /* ViewProvider.swift in Sources */,
+				C56DB72927E0B34B00F1A510 /* LoaderView.swift in Sources */,
 				C57DD34127D14DAD0012BC03 /* Handler.swift in Sources */,
 				C50E24ED27D0B6CF003E1ACF /* SettingsScreen.swift in Sources */,
 				C57904E627CD79A8006971BA /* HomeScreen.swift in Sources */,
@@ -555,7 +554,6 @@
 				C5ACC77027CE672B00B729F6 /* RestManager.swift in Sources */,
 				C55E8CE027D005EA008BBB62 /* SearchbarDummy.swift in Sources */,
 				C5ACC75D27CE4A8100B729F6 /* Searchbar.swift in Sources */,
-				C5BEDF7427D6BF3A00EA7AE9 /* ViewProvider.swift in Sources */,
 				C5ACC76927CE66CF00B729F6 /* LocationRepository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
