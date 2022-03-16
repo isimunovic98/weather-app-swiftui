@@ -13,9 +13,10 @@ class HomeScreenViewModel : ObservableObject {
     @Published var isLoading : Bool = false
     @Published var error : Error?
     @Published var screenData : HomeScreenDomainItem
-        
+    
     let weatherRepository : WeatherRepository
     let persistence : UserDefaultsManager
+    var disposebag = Set<AnyCancellable>()
     
     init(repository : WeatherRepository) {
         self.weatherRepository = repository
@@ -33,15 +34,19 @@ class HomeScreenViewModel : ObservableObject {
         let lat = current.lat
         let lng = current.lng
         let units = persistence.fetchMeasuringUnit()
-        weatherRepository.fetch(lat: lat, lon: lng, units: units, completion: { result -> () in
-            self.isLoading = false
-            switch result {
-            case .success(let response):
-                self.setOutput(response: response)
-            case.failure(let error):
-                self.error = error
-            }
-        })
+        weatherRepository.fetch(lat: lat, lon: lng, units: units)
+            .subscribe(on: DispatchQueue.global(qos: .background))
+            .receive(on: RunLoop.main)
+            .sink(receiveValue: { [unowned self] response in
+                self.isLoading = false
+                do {
+                    self.setOutput(response: try response.get())
+                }
+                catch(let error) {
+                    print(error.localizedDescription)
+                }
+            })
+            .store(in: &disposebag)
     }
     
     func setOutput(response: WeatherResponse) {
