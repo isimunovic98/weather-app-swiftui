@@ -4,7 +4,7 @@
 //
 //  Created by Domagoj Bunoza on 02.03.2022..
 //
-
+import Foundation
 import Combine
 
 class SearchScreenViewModel : ObservableObject {
@@ -13,6 +13,7 @@ class SearchScreenViewModel : ObservableObject {
     
     let locationRepository : LocationRepository
     let persistence : UserDefaultsManager
+    var disposebag = Set<AnyCancellable>()
     
     init(repository : LocationRepository) {
         self.locationRepository = repository
@@ -22,14 +23,18 @@ class SearchScreenViewModel : ObservableObject {
     
     func handleGettingLocation(cityName: String) {
         let cityNameModified = Handler.modifyCityName(cityName: cityName)
-        locationRepository.fetch(cityName: cityNameModified , completion: { result -> () in
-            switch result {
-            case .success(let result):
-                self.setOutput(response: result)
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        })
+        locationRepository.fetch(cityName: cityNameModified)
+            .subscribe(on: DispatchQueue.global(qos: .background))
+            .receive(on: RunLoop.main)
+            .sink(receiveValue: { [unowned self] response in
+                do {
+                    self.setOutput(response: try response.get())
+                }
+                catch(let error) {
+                    print(error.localizedDescription)
+                }
+            })
+            .store(in: &disposebag)
     }
     
     func setOutput(response: GeoResponse) {

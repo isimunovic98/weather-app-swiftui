@@ -7,6 +7,8 @@
 
 import Foundation
 import Alamofire
+import Combine
+
 
 public class RestManager {
     private static let manager: Alamofire.Session = {
@@ -17,22 +19,28 @@ public class RestManager {
         return sessionManager
     }()
     
-    public static func fetch<T: Codable>(url: String, completionHandler: @escaping (Result<T, NetworkError>) -> () ) {
-        let request = RestManager.manager
+    public static func fetch<T: Codable>(url: String) -> AnyPublisher<Result<T, NetworkError>, Never> {
+        return RestManager.manager
             .request(url, encoding: URLEncoding.default)
             .validate()
-            .responseData { response in
+            .publishUnserialized()
+            .map { response in
                 switch response.result {
-                case .success(let data):
-                    if let decodedObject: T = SerializationManager.parseData(jsonData: data) {
-                        completionHandler(.success(decodedObject))
-                    } else {
-                        completionHandler(.failure(.parseFailed))
+                case .success(let optionalData):
+                    if let data = optionalData {
+                        if let decodedObject: T = SerializationManager.parseData(jsonData: data) {
+                            return .success(decodedObject)
+                        } else {
+                            return .failure(.parseFailed)
+                        }
+                    }
+                    else {
+                        return .failure(.parseFailed)
                     }
                 case .failure(_):
-                    completionHandler(.failure(.generalError))
+                    return .failure(.generalError)
                 }
-            }
-        request.resume()
+            }.receive(on: DispatchQueue.main)
+            .eraseToAnyPublisher()
     }
 }
