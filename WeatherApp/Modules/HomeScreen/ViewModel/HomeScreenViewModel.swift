@@ -39,20 +39,21 @@ class HomeScreenViewModel : ObservableObject {
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [unowned self] response in
                 self.isLoading = false
-                do {
-                    self.setOutput(response: try response.get())
-                }
-                catch(let error) {
-                    print(error.localizedDescription)
+                switch response {
+                case .success(let response):
+                    self.screenData = createScreenData(response: response)
+                case .failure(let error):
+                    self.error = error
                 }
             })
             .store(in: &disposebag)
     }
     
-    func setOutput(response: WeatherResponse) {
+    func createScreenData(response: WeatherResponse) -> HomeScreenDomainItem {
+        let currentFeatures = persistence.fetchFeatures()
         let measuringUnit = persistence.fetchMeasuringUnit()
         
-        screenData = HomeScreenDomainItem(
+        return HomeScreenDomainItem(
             backgroundImage: Handler.handleImageChoice(weather: response.weather[0].main),
             currentTemperature: (measuringUnit == "Metric") ? String(Int(response.main.temp)) + " °C" : String(Int(response.main.temp)) + " °F",
             weatherDescription: response.weather[0].weatherDescription.capitalized + ".",
