@@ -1,8 +1,8 @@
 //
 //  LoaderView.swift
-//  WeatherApp (iOS)
+//  WeatherApp
 //
-//  Created by Domagoj Bunoza on 15.03.2022..
+//  Created by Domagoj Bunoza on 17.03.2022..
 //
 
 import Foundation
