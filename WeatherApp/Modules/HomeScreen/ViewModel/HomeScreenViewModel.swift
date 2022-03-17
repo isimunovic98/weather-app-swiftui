@@ -50,7 +50,6 @@ class HomeScreenViewModel : ObservableObject {
     }
     
     func createScreenData(response: WeatherResponse) -> HomeScreenDomainItem {
-        let currentFeatures = persistence.fetchFeatures()
         let measuringUnit = persistence.fetchMeasuringUnit()
         
         return HomeScreenDomainItem(

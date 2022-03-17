@@ -31,7 +31,7 @@ struct HomeScreen: View {
     func renderContentView() -> some View {
         ZStack{
             if viewModel.isLoading {
-                viewProvider.renderLoadingView(loadingIndicator: viewModel.isLoading)
+                LoaderView()
             } else {
                 ZStack {
                     renderBackgroundImage()
@@ -182,6 +182,6 @@ struct ContentView_Previews: PreviewProvider {
         let weatherRepository = WeatherRepositoryImpl()
         let homeScreenViewModel = HomeScreenViewModel(repository: weatherRepository)
         
-        HomeScreen(viewmodel: homeScreenViewModel, viewProvider: viewProvider)
+        HomeScreen(viewmodel: homeScreenViewModel)
     }
 }
