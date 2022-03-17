@@ -22,7 +22,7 @@ struct ErrorView : View {
                 .resizable()
                 .ignoresSafeArea()
                 .blur(radius: 3)
-            Text("Error! + \(error.localizedDescription)")
+            Text("Error! \(error.localizedDescription)")
                 .font(.system(size: 20))
                 .padding()
         }
