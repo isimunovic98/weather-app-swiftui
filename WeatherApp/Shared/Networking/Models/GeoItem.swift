@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct GeoItem: Codable, Hashable {
+class GeoItem: NSObject, Codable {
     let name: String
     let lat : String
     let lng : String

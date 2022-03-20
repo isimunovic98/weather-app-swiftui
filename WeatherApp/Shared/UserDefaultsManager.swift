@@ -15,6 +15,10 @@ class UserDefaultsManager {
     let encoder = JSONEncoder()
     let decoder = JSONDecoder()
     
+    func fetchCurrentCityObservable() -> AnyPublisher<GeoItem, Never> {
+        return defaults.publisher(for: \.currentCity).eraseToAnyPublisher()
+    }
+    
     func fetchHumidity() -> Bool {
         return defaults.bool(forKey: "humidity")
     }
