@@ -7,6 +7,7 @@
 
 import Combine
 import Foundation
+import CoreLocation
 
 class HomeScreenViewModel: ObservableObject {
     
@@ -14,8 +15,11 @@ class HomeScreenViewModel: ObservableObject {
     @Published var error: Error?
     @Published var screenData: HomeScreenDomainItem
     
-    let weatherRepository: WeatherRepository
-    let persistence: UserDefaultsManager
+    var currentLocationIsSet : Bool = false
+    
+    let weatherRepository : WeatherRepository
+    let persistence : UserDefaultsManager
+    let locationManager = LocationProvider()
     var disposebag = Set<AnyCancellable>()
     
     init(repository: WeatherRepository) {
@@ -25,16 +29,52 @@ class HomeScreenViewModel: ObservableObject {
     }
     
     func onAppear() {
-        getWeatherResponse()
+        if !currentLocationIsSet {
+            setupLocationListener()
+        }
+        requestWeatherUpdates()
     }
     
-    func getWeatherResponse() {
+    func setupLocationListener() {
+        isLoading = true
+        locationManager.setupLocationManager()
+        locationManager.$currentLocation
+            .subscribe(on: DispatchQueue.global(qos: .background))
+            .receive(on: RunLoop.main)
+            .sink(receiveValue: { currentLocation in
+                if let location = currentLocation {
+                    location.fetchCityName { city, error in
+                        guard let city = city, error == nil else { return }
+                        let newCity = GeoItem(
+                            name: city,
+                            lat: String(location.coordinate.latitude),
+                            lng: String(location.coordinate.longitude)
+                        )
+                        self.persistence.storeNewCity(geoItem: newCity)
+                        self.currentLocationIsSet = true
+                        self.handleWeatherResponse(city: newCity)
+                    }
+                }
+            })
+            .store(in: &disposebag)
+    }
+    
+    func requestWeatherUpdates() {
+        persistence.fetchCurrentCityObservable()
+            .subscribe(on: DispatchQueue.global(qos: .background))
+            .receive(on: RunLoop.main)
+            .sink(receiveValue: { newCurrentCity in
+                if self.currentLocationIsSet {
+                    self.handleWeatherResponse(city: newCurrentCity)
+                }
+            })
+            .store(in: &disposebag)
+    }
+    
+    func handleWeatherResponse(city: GeoItem) {
         self.isLoading = true
-        let current = persistence.fetchCurrentCity()
-        let lat = current.lat
-        let lng = current.lng
-        let units = persistence.fetchSettingsModel().measuringUnit
-        weatherRepository.fetch(lat: lat, lon: lng, units: units)
+        let units = persistence.fetchMeasuringUnit()
+        weatherRepository.fetch(lat: city.lat, lon: city.lng, units: units)
             .subscribe(on: DispatchQueue.global(qos: .background))
             .receive(on: RunLoop.main)
             .tryMap { result -> WeatherResponse in

@@ -54,6 +54,9 @@
 		C5ECD86127E3B4B700DA33B0 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ECD85F27E3B4B700DA33B0 /* ErrorView.swift */; };
 		C5ECD86327E3B4DE00DA33B0 /* LoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ECD86227E3B4DE00DA33B0 /* LoaderView.swift */; };
 		C5ECD86427E3B4DE00DA33B0 /* LoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5ECD86227E3B4DE00DA33B0 /* LoaderView.swift */; };
+		C5FD56F027E77C4400BC3977 /* LocationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FD56EF27E77C4400BC3977 /* LocationProvider.swift */; };
+		C5FD56F327E796D600BC3977 /* CLLocation+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FD56F227E796D600BC3977 /* CLLocation+Extensions.swift */; };
+		C5FD56F527E7997A00BC3977 /* UserDefaults+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FD56F427E7997A00BC3977 /* UserDefaults+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -92,6 +95,9 @@
 		C5BEDF7027D6AD8F00EA7AE9 /* HomeScreenDomainItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenDomainItem.swift; sourceTree = "<group>"; };
 		C5ECD85F27E3B4B700DA33B0 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		C5ECD86227E3B4DE00DA33B0 /* LoaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderView.swift; sourceTree = "<group>"; };
+		C5FD56EF27E77C4400BC3977 /* LocationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationProvider.swift; sourceTree = "<group>"; };
+		C5FD56F227E796D600BC3977 /* CLLocation+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocation+Extensions.swift"; sourceTree = "<group>"; };
+		C5FD56F427E7997A00BC3977 /* UserDefaults+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extensions.swift"; sourceTree = "<group>"; };
 		FB1CC03254E5AD389D2FD359 /* Pods_WeatherApp__iOS_.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WeatherApp__iOS_.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -272,6 +278,8 @@
 		C57904D327CD79A6006971BA /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				C5FD56F127E796BE00BC3977 /* Extensions */,
+				C5FD56EE27E77C2E00BC3977 /* LocationProvider */,
 				C5ECD86627E3B55600DA33B0 /* ErrorScreen */,
 				C5ECD86527E3B54100DA33B0 /* LoaderScreen */,
 				C5ACC76A27CE66FC00B729F6 /* Networking */,
@@ -386,6 +394,23 @@
 				C5ECD85F27E3B4B700DA33B0 /* ErrorView.swift */,
 			);
 			path = ErrorScreen;
+			sourceTree = "<group>";
+		};
+		C5FD56EE27E77C2E00BC3977 /* LocationProvider */ = {
+			isa = PBXGroup;
+			children = (
+				C5FD56EF27E77C4400BC3977 /* LocationProvider.swift */,
+			);
+			path = LocationProvider;
+			sourceTree = "<group>";
+		};
+		C5FD56F127E796BE00BC3977 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C5FD56F227E796D600BC3977 /* CLLocation+Extensions.swift */,
+				C5FD56F427E7997A00BC3977 /* UserDefaults+Extensions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -531,11 +556,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				C57DD34827D163C90012BC03 /* WeatherRepository.swift in Sources */,
+				C5FD56F327E796D600BC3977 /* CLLocation+Extensions.swift in Sources */,
 				C54D8C5E27CFC5BE00242A69 /* SearchScreenViewModel.swift in Sources */,
 				C50E24F327D0C732003E1ACF /* RadioButtonGroup.swift in Sources */,
 				C569FB5C27DD471D00533AF0 /* SettingsScreenDomainItem.swift in Sources */,
 				C50E24EF27D0B786003E1ACF /* SettingsScreenViewModel.swift in Sources */,
 				C57DD34627D160F20012BC03 /* WeatherRepositoryImpl.swift in Sources */,
+				C5FD56F027E77C4400BC3977 /* LocationProvider.swift in Sources */,
 				C5BEDF7127D6AD8F00EA7AE9 /* HomeScreenDomainItem.swift in Sources */,
 				C5ECD86027E3B4B700DA33B0 /* ErrorView.swift in Sources */,
 				C50E24F727D0D694003E1ACF /* CheckView.swift in Sources */,
@@ -550,6 +577,7 @@
 				C5ECD86327E3B4DE00DA33B0 /* LoaderView.swift in Sources */,
 				C57DD34127D14DAD0012BC03 /* Handler.swift in Sources */,
 				C50E24ED27D0B6CF003E1ACF /* SettingsScreen.swift in Sources */,
+				C5FD56F527E7997A00BC3977 /* UserDefaults+Extensions.swift in Sources */,
 				C57904E627CD79A8006971BA /* HomeScreen.swift in Sources */,
 				C5ACC76127CE664800B729F6 /* HomeScreenViewModel.swift in Sources */,
 				C57DD34427D1609A0012BC03 /* LocationRepositoryImpl.swift in Sources */,
@@ -709,6 +737,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "WeatherApp--iOS--Info.plist";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "App uses location in order to provider relevant weather info.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -743,6 +772,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "WeatherApp--iOS--Info.plist";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "App uses location in order to provider relevant weather info.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -891,6 +921,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "WeatherApp--iOS--Info.plist";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "App uses location in order to provider relevant weather info.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
