@@ -83,6 +83,7 @@ struct SettingsScreen: View {
                     }
                 )
             }
+            .listStyle(.insetGrouped)
         }
     }
     
