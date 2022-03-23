@@ -80,7 +80,7 @@ struct RadioButtonGroup: View {
 
     var body: some View {
         HStack(alignment: .center) {
-            ForEach(0..<items.count) { index in
+            ForEach(0..<items.count, id: \.self) { index in
                 RadioButton(self.items[index], callback: self.radioGroupCallback, selectedID: self.selectedId)
             }
         }
