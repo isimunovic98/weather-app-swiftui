@@ -49,7 +49,7 @@ struct SearchView: View {
         let searchBar = SearchBar(text: $text)
         return searchBar
             .onChange(of: text, perform: { newCity in
-                viewModel.handleGettingLocation(cityName: newCity)
+                viewModel.getLocation(cityName: newCity)
             })
     }
     
@@ -57,7 +57,7 @@ struct SearchView: View {
         return List {
             ForEach(viewModel.cities , id: \.self) { city in
                 Text(city.name).onTapGesture {
-                    viewModel.selectedCity(geoItem: city)
+                    viewModel.didSelectCity(geoItem: city)
                     self.mode.wrappedValue.dismiss()
                 }
             }.listRowBackground(Color.white.opacity(0.8))

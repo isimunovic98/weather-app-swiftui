@@ -21,7 +21,7 @@ class SearchScreenViewModel : ObservableObject {
         self.cities = []
     }
     
-    func handleGettingLocation(cityName: String) {
+    func getLocation(cityName: String) {
         let cityNameModified = Handler.modifyCityName(cityName: cityName)
         locationRepository.fetch(cityName: cityNameModified)
             .subscribe(on: DispatchQueue.global(qos: .background))
@@ -53,7 +53,7 @@ class SearchScreenViewModel : ObservableObject {
             .store(in: &disposebag)
     }
     
-    func selectedCity(geoItem: GeoItem) {
+    func didSelectCity(geoItem: GeoItem) {
         persistence.storeNewCity(geoItem: geoItem)
     }
 }

@@ -25,10 +25,10 @@ class HomeScreenViewModel : ObservableObject {
     }
     
     func onAppear() {
-        handleWeatherResponse()
+        getWeatherResponse()
     }
     
-    func handleWeatherResponse() {
+    func getWeatherResponse() {
         self.isLoading = true
         let current = persistence.fetchCurrentCity()
         let lat = current.lat

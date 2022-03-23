@@ -24,7 +24,7 @@ class SettingsScreenViewModel : ObservableObject {
             wind: persistence.fetchWind())
     }
     
-    func handleGettingLocationHistory() {
+    func getLocationHistory() {
         let cityHistory = persistence.fetchCityHistory()
         setScreenData(from: cityHistory)
     }
@@ -36,7 +36,7 @@ class SettingsScreenViewModel : ObservableObject {
     }
     
     func onAppear() {
-        handleGettingLocationHistory()
+        getLocationHistory()
     }
     
     func selectedCity(geoItem: GeoItem) {
@@ -46,7 +46,7 @@ class SettingsScreenViewModel : ObservableObject {
     
     func selectedDeleteCity(geoItem: GeoItem) {
         persistence.removeCity(geoItem: geoItem)
-        handleGettingLocationHistory()
+        getLocationHistory()
     }
     
     func setScreenData(from input: [GeoItem]) {
