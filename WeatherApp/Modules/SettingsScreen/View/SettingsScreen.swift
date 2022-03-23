@@ -10,7 +10,7 @@ import Combine
 
 struct SettingsScreen: View {
     
-    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
+    @Environment(\.presentationMode) var presentationMode
     
     @ObservedObject var viewModel : SettingsScreenViewModel
     
@@ -67,7 +67,7 @@ struct SettingsScreen: View {
                     HStack{
                         Text(city.name).onTapGesture {
                             viewModel.selectedCity(geoItem: city)
-                            self.mode.wrappedValue.dismiss()
+                            self.presentationMode.wrappedValue.dismiss()
                         }
                         Spacer()
                         Image(systemName: "multiply.circle.fill")
