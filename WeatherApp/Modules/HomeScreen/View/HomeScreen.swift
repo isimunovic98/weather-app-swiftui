@@ -45,7 +45,8 @@ struct HomeScreen: View {
                             renderFooter()
                         }
                     }
-                }.navigationViewStyle(.stack)
+                }
+                .navigationViewStyle(.stack)
             }}
     }
     

@@ -17,22 +17,12 @@ class SettingsScreenViewModel : ObservableObject {
     
     init() {
         self.persistence = UserDefaultsManager()
-        self.screenData = SettingsScreenDomainItem(
-            cities: [],
-            humidity: persistence.fetchHumidity(),
-            pressure: persistence.fetchPressure(),
-            wind: persistence.fetchWind())
+        self.screenData = persistence.fetchSettingsModel()
     }
     
     func getLocationHistory() {
         let cityHistory = persistence.fetchCityHistory()
         setScreenData(from: cityHistory)
-    }
-    
-    func setFeatures() {
-        screenData.humidity = persistence.fetchHumidity()
-        screenData.pressure = persistence.fetchPressure()
-        screenData.wind = persistence.fetchWind()
     }
     
     func onAppear() {
@@ -51,24 +41,26 @@ class SettingsScreenViewModel : ObservableObject {
     
     func setScreenData(from input: [GeoItem]) {
         screenData.cities = input
-        setFeatures()
     }
     
     func selectMeasuringUnit(unit: String) {
-        persistence.storeMeasuringUnit(unit: unit)
+        screenData.measuringUnit = unit
+        persistence.storeSettingsModel(settings: screenData)
     }
+    
+    
     
     func toggleFeature(feature: String) {
         switch feature {
         case "humidity":
             screenData.humidity.toggle()
-            persistence.storeHumidity(value: screenData.humidity)
+            persistence.storeSettingsModel(settings: screenData)
         case "pressure":
             screenData.pressure.toggle()
-            persistence.storePressure(value: screenData.pressure)
+            persistence.storeSettingsModel(settings: screenData)
         case "wind":
             screenData.wind.toggle()
-            persistence.storeWind(value: screenData.wind)
+            persistence.storeSettingsModel(settings: screenData)
         default:
             break
         }

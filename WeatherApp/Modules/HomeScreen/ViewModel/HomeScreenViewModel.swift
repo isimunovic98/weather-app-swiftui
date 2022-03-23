@@ -33,7 +33,7 @@ class HomeScreenViewModel : ObservableObject {
         let current = persistence.fetchCurrentCity()
         let lat = current.lat
         let lng = current.lng
-        let units = persistence.fetchMeasuringUnit()
+        let units = persistence.fetchSettingsModel().measuringUnit
         weatherRepository.fetch(lat: lat, lon: lng, units: units)
             .subscribe(on: DispatchQueue.global(qos: .background))
             .receive(on: RunLoop.main)
@@ -63,21 +63,21 @@ class HomeScreenViewModel : ObservableObject {
     }
     
     func createScreenData(response: WeatherResponse) -> HomeScreenDomainItem {
-        let measuringUnit = persistence.fetchMeasuringUnit()
+        let settings = persistence.fetchSettingsModel()
         
         return HomeScreenDomainItem(
             backgroundImage: Handler.handleImageChoice(weather: response.weather[0].main),
-            currentTemperature: (measuringUnit == "Metric") ? String(Int(response.main.temp)) + " °C" : String(Int(response.main.temp)) + " °F",
+            currentTemperature: (settings.measuringUnit == "Metric") ? String(Int(response.main.temp)) + " °C" : String(Int(response.main.temp)) + " °F",
             weatherDescription: response.weather[0].weatherDescription.capitalized + ".",
             cityName: response.name,
-            lowTemperature: measuringUnit == "Metric" ? String(Int(response.main.tempMin)) + " °C" : String(Int(response.main.tempMin)) + " °F",
-            highTemperature: measuringUnit == "Metric" ? String(Int(response.main.tempMax)) + " °C" : String(Int(response.main.tempMax)) + " °F",
-            windSpeed: measuringUnit == "Metric" ? String(Int(response.wind.speed)) + " km/h" : String(Int(response.wind.speed)) + " mph",
+            lowTemperature: settings.measuringUnit == "Metric" ? String(Int(response.main.tempMin)) + " °C" : String(Int(response.main.tempMin)) + " °F",
+            highTemperature: settings.measuringUnit == "Metric" ? String(Int(response.main.tempMax)) + " °C" : String(Int(response.main.tempMax)) + " °F",
+            windSpeed: settings.measuringUnit == "Metric" ? String(Int(response.wind.speed)) + " km/h" : String(Int(response.wind.speed)) + " mph",
             pressure: String(response.main.pressure) + " hPa",
             humidity: String(response.main.humidity) + "%",
-            showWindSpeed : persistence.fetchWind(),
-            showPressure : persistence.fetchPressure(),
-            showHumidity : persistence.fetchHumidity()
+            showWindSpeed : settings.wind,
+            showPressure : settings.pressure,
+            showHumidity : settings.humidity
         )
     }
 }

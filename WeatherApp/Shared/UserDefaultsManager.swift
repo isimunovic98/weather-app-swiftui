@@ -14,54 +14,7 @@ class UserDefaultsManager {
     
     let encoder = JSONEncoder()
     let decoder = JSONDecoder()
-    
-    func fetchHumidity() -> Bool {
-        return defaults.bool(forKey: "humidity")
-    }
-    
-    func fetchPressure() -> Bool {
-        return defaults.bool(forKey: "pressure")
-    }
-    
-    func fetchWind() -> Bool {
-        return defaults.bool(forKey: "wind")
-    }
-    
-    func storeHumidity(value: Bool) {
-        defaults.set(value, forKey: "humidity")
-    }
-    
-    func storePressure(value: Bool) {
-        defaults.set(value, forKey: "pressure")
-    }
-    
-    func storeWind(value: Bool) {
-        defaults.set(value, forKey: "wind")
-    }
-    
-    func fetchMeasuringUnit() -> String {
-        var measuringUnit : String
-        do {
-            guard let decoded = defaults.data(forKey: "unit")
-            else {
-                return "Metric"
-            }
-            measuringUnit = try decoder.decode(String.self, from: decoded)
-        }
-        catch {
-            return "Metric"
-        }
-        return measuringUnit
-    }
-    
-    func storeMeasuringUnit(unit: String) {
-        do {
-            let data = try encoder.encode(unit)
-            defaults.set(data, forKey: "unit")
-        }
-        catch{}
-    }
-    
+        
     func fetchCurrentCity() -> GeoItem {
         var currentCity = [GeoItem]()
         let defaultGeoItem = GeoItem(name: "Vienna", lat: "48.20849", lng: "16.37208")
@@ -105,6 +58,28 @@ class UserDefaultsManager {
             defaults.set(data, forKey: "geo")
         }
         catch{}
+    }
+    
+    func storeSettingsModel(settings: SettingsScreenDomainItem) {
+        do {
+            let data = try encoder.encode(settings)
+            defaults.set(data, forKey: "settings")
+        }
+        catch{}
+    }
+    
+    func fetchSettingsModel() -> SettingsScreenDomainItem {
+        let defaultSettings = SettingsScreenDomainItem(cities: fetchCityHistory(), humidity: true, pressure: true, wind: true, measuringUnit: "Metric")
+        do {
+            guard let decoded = defaults.data(forKey: "settings")
+            else {
+                return defaultSettings
+            }
+            return try decoder.decode(SettingsScreenDomainItem.self, from: decoded)
+        }
+        catch {
+            return defaultSettings
+        }
     }
     
     func removeCity(geoItem: GeoItem) {

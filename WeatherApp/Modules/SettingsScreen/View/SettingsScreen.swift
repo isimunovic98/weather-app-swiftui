@@ -70,7 +70,6 @@ struct SettingsScreen: View {
     func renderBackgroundImage() -> some View {
         return Image(backgroundImage)
             .resizable()
-            .ignoresSafeArea()
             .blur(radius: 20)
     }
     
@@ -97,8 +96,8 @@ struct SettingsScreen: View {
                     header: {
                         HStack {
                             Text("History")
+                                .contrast(1)
                                 .font(.system(size: 30))
-                                .foregroundColor(.white)
                             Spacer()
                         }
                     }
@@ -109,7 +108,7 @@ struct SettingsScreen: View {
     }
     
     func renderUnitSelection() -> some View {
-        return RadioButtonGroup(items: ["Imperial", "Metric"] , selectedId: viewModel.persistence.fetchMeasuringUnit()) { selected in
+        return RadioButtonGroup(items: ["Imperial", "Metric"] , selectedId: viewModel.persistence.fetchSettingsModel().measuringUnit) { selected in
             viewModel.selectMeasuringUnit(unit: selected)
         }
         .foregroundColor(.white)
