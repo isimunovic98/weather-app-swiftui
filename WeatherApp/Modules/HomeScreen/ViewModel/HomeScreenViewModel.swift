@@ -37,14 +37,27 @@ class HomeScreenViewModel : ObservableObject {
         weatherRepository.fetch(lat: lat, lon: lng, units: units)
             .subscribe(on: DispatchQueue.global(qos: .background))
             .receive(on: RunLoop.main)
-            .sink(receiveValue: { [unowned self] response in
-                self.isLoading = false
-                switch response {
-                case .success(let response):
-                    self.screenData = createScreenData(response: response)
+            .tryMap { result -> WeatherResponse in
+                switch result {
+                case .success(let result):
+                    return result
+                case .failure(let error):
+                    throw error
+                }
+            }
+            .map { result -> (HomeScreenDomainItem) in
+                return self.createScreenData(response: result)
+            }
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    self.isLoading = false
+                    break
                 case .failure(let error):
                     self.error = error
                 }
+            }, receiveValue: { screenData in
+                self.screenData = screenData
             })
             .store(in: &disposebag)
     }

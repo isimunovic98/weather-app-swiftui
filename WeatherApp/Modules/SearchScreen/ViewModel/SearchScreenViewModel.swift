@@ -26,21 +26,31 @@ class SearchScreenViewModel : ObservableObject {
         locationRepository.fetch(cityName: cityNameModified)
             .subscribe(on: DispatchQueue.global(qos: .background))
             .receive(on: RunLoop.main)
-            .sink(receiveValue: { [unowned self] response in
-                do {
-                    self.setOutput(response: try response.get())
+            .tryMap { result -> GeoResponse in
+                switch result {
+                case .success(let result):
+                    return result
+                case .failure(let error):
+                    throw error
                 }
-                catch(let error) {
-                    print(error.localizedDescription)
+            }
+            .map { result -> [GeoItem] in
+                result.geonames.map { names in
+                    return GeoItem(name: names.name, lat: names.lat, lng: names.lng)
                 }
+            }
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    self.cities = [GeoItem(name: "Error has occured: \(error.localizedDescription)", lat: "0", lng: "0")]
+                    break
+                }
+            }, receiveValue: { result in
+                self.cities = result
             })
             .store(in: &disposebag)
-    }
-    
-    func setOutput(response: GeoResponse) {
-        cities = response.geonames.map({
-            GeoItem(name: $0.name, lat: $0.lat, lng: $0.lng)
-        })
     }
     
     func selectedCity(geoItem: GeoItem) {
