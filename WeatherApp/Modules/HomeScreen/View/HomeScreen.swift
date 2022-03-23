@@ -155,9 +155,15 @@ struct HomeScreen: View {
     func renderFooter() -> some View {
         let locationRepository = LocationRepositoryImpl()
         let searchScreenViewModel = SearchScreenViewModel(repository: locationRepository)
+        let settingsScreenViewModel = SettingsScreenViewModel()
         
         return HStack {
-            NavigationLink(destination: SettingsScreen(backgroundImage: viewModel.screenData.backgroundImage)) {
+            NavigationLink(
+                destination: SettingsScreen(
+                    backgroundImage: viewModel.screenData.backgroundImage,
+                    viewModel: settingsScreenViewModel
+                )
+            ) {
                 Image(systemName: "slider.vertical.3")
                     .resizable()
                     .foregroundColor(.white)
@@ -171,7 +177,8 @@ struct HomeScreen: View {
             ) {
                 SearchBarDummy()
             }
-        }.padding()
+        }
+        .padding()
     }
 }
 

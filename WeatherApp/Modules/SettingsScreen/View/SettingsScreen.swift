@@ -16,9 +16,9 @@ struct SettingsScreen: View {
     
     let backgroundImage : String
     
-    init(backgroundImage: String) {
+    init(backgroundImage: String, viewModel: SettingsScreenViewModel) {
         self.backgroundImage = backgroundImage
-        self.viewModel = SettingsScreenViewModel()
+        self.viewModel = viewModel
         UITableView.appearance().backgroundColor = .white.withAlphaComponent(0)
     }
     
