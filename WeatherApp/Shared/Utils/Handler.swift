@@ -9,7 +9,7 @@ import Foundation
 
 class Handler {
     
-    static func handleImageChoice(weather: String) -> String {
+    static func handleImageChoice(weather: String, icon: String) -> String {
         switch weather {
         case "Thunderstorm":
             return "body_image-thunderstorm"
@@ -20,9 +20,15 @@ class Handler {
         case "Snow":
             return "body_image-snow"
         case "Clear":
-            return "body_image-clear-day"
+            if icon.last == "d" {
+                return "body_image-clear-day"
+            }
+            return "body_image-clear-night"
         case "Clouds":
-            return "body_image-cloudy"
+            if icon.last == "d" {
+                return "body_image-partly-cloudy-day"
+            }
+            return "body_image-partly-cloudy-night"
         default:
             return "body_image-tornado"
         }

@@ -66,7 +66,7 @@ class HomeScreenViewModel : ObservableObject {
         let settings = persistence.fetchSettingsModel()
         
         return HomeScreenDomainItem(
-            backgroundImage: Handler.handleImageChoice(weather: response.weather[0].main),
+            backgroundImage: Handler.handleImageChoice(weather: response.weather[0].main, icon: response.weather[0].icon),
             currentTemperature: (settings.measuringUnit == "Metric") ? String(Int(response.main.temp)) + " °C" : String(Int(response.main.temp)) + " °F",
             weatherDescription: response.weather[0].weatherDescription.capitalized + ".",
             cityName: response.name,
