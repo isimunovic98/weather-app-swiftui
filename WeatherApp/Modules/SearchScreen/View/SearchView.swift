@@ -10,12 +10,12 @@ import Combine
 
 struct SearchView: View {
     
-    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
+    @Environment(\.presentationMode) var presentationMode
     
-    @ObservedObject var viewModel : SearchScreenViewModel
+    @ObservedObject var viewModel: SearchScreenViewModel
     @State var text = ""
     
-    let backgroundImage : String
+    let backgroundImage: String
     
     init(backgroundImage: String, viewModel: SearchScreenViewModel) {
         self.backgroundImage = backgroundImage
@@ -23,14 +23,14 @@ struct SearchView: View {
         UITableView.appearance().backgroundColor = .white.withAlphaComponent(0)
     }
     
-    var body : some View {
+    var body: some View {
         renderContentView()
     }
     
     func renderContentView() -> some View {
         ZStack {
             renderBackgroundImage()
-            VStack{
+            VStack {
                 renderSearchBar()
                 renderList()
                 Spacer()
@@ -48,19 +48,24 @@ struct SearchView: View {
     func renderSearchBar() -> some View {
         let searchBar = SearchBar(text: $text)
         return searchBar
-            .onChange(of: text, perform: { newCity in
-                viewModel.getLocation(cityName: newCity)
-            })
+            .onChange(
+                of: text,
+                perform: { newCity in
+                    viewModel.getLocation(cityName: newCity)
+                }
+            )
     }
     
     func renderList() -> some View {
         return List {
             ForEach(viewModel.cities , id: \.self) { city in
-                Text(city.name).onTapGesture {
-                    viewModel.didSelectCity(geoItem: city)
-                    self.mode.wrappedValue.dismiss()
-                }
-            }.listRowBackground(Color.white.opacity(0.8))
+                Text(city.name)
+                    .onTapGesture {
+                        viewModel.didSelectCity(geoItem: city)
+                        self.presentationMode.wrappedValue.dismiss()
+                    }
+            }
+            .listRowBackground(Color.white.opacity(0.8))
         }
     }
 }

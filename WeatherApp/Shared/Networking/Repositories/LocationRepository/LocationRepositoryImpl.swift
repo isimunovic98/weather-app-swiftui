@@ -8,9 +8,14 @@
 import Foundation
 import Combine
 
-class LocationRepositoryImpl : LocationRepository {
+class LocationRepositoryImpl: LocationRepository {
     
     func fetch(cityName: String) -> AnyPublisher<Result<GeoResponse, NetworkError>, Never> {
-        return RestManager.fetch(url: RestEndpoints.geo(cityName: cityName).endpoint())
+        return RestManager.fetch(
+            url: RestEndpoints.geo(
+                cityName: cityName
+            )
+            .endpoint()
+        )
     }
 }

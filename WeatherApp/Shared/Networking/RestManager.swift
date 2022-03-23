@@ -40,7 +40,8 @@ public class RestManager {
                 case .failure(_):
                     return .failure(.generalError)
                 }
-            }.receive(on: DispatchQueue.main)
+            }
+            .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
     }
 }

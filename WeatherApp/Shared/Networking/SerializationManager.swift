@@ -29,7 +29,7 @@ public class SerializationManager {
             object = try jsonDecoder.decode(T.self, from: jsonData)
         } catch let error {
             debugPrint("Error while parsing data from server. Received dataClassType: \(T.self). More info: \(error)")
-            object=nil
+            object = nil
         }
         return object
     }

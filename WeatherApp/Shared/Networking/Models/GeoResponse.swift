@@ -20,7 +20,7 @@ struct Geoname: Codable {
     let lng: String
     let name: String
     let lat: String
-
+    
     enum CodingKeys: String, CodingKey {
         case name, lat, lng
     }

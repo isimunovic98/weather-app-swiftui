@@ -9,9 +9,9 @@ import Foundation
 
 struct GeoItem: Codable, Hashable {
     let name: String
-    let lat : String
-    let lng : String
-
+    let lat: String
+    let lng: String
+    
     init(name: String, lat: String, lng: String) {
         self.name = name
         self.lat = lat

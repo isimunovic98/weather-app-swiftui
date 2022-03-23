@@ -9,7 +9,6 @@ import Foundation
 
 public enum RestEndpoints {
     case weather(lat: String, lng: String, units: String)
-    
     case geo(cityName: String)
     
     static let weatherBaseUrl = Bundle.main.object(forInfoDictionaryKey: "WEATHER_BASE_URL") as! String
@@ -20,9 +19,15 @@ public enum RestEndpoints {
     public func endpoint() -> String {
         switch self {
         case .weather(let lat, let lng, let units):
-            return RestEndpoints.weatherBaseUrl + "lat=" + lat + "&lon=" + lng + "&units=" + units + "&appid=" + RestEndpoints.weatherApiKey
+            return RestEndpoints.weatherBaseUrl +
+            "lat=" + lat +
+            "&lon=" + lng +
+            "&units=" + units +
+            "&appid=" + RestEndpoints.weatherApiKey
         case .geo(let cityName):
-            return RestEndpoints.geoBaseUrl + "username=" + RestEndpoints.geoUsername + "&q=" + cityName
+            return RestEndpoints.geoBaseUrl +
+            "username=" + RestEndpoints.geoUsername +
+            "&q=" + cityName
         }
     }
 }

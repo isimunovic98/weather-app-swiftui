@@ -14,7 +14,6 @@ struct WeatherAppApp: App {
         WindowGroup {
             let weatherRepository = WeatherRepositoryImpl()
             let homeScreenViewModel = HomeScreenViewModel(repository: weatherRepository)
-            
             HomeScreen(viewmodel: homeScreenViewModel)
         }
     }

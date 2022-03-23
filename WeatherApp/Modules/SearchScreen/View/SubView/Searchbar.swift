@@ -9,7 +9,7 @@ import SwiftUI
 import Introspect
 
 struct SearchBar: View {
-    @Binding var text : String
+    @Binding var text: String
     
     @State private var isEditing = false
     
@@ -28,9 +28,11 @@ struct SearchBar: View {
                             .padding(.leading, 8)
                         
                         if isEditing {
-                            Button(action: {
-                                self.text = ""
-                            }) {
+                            Button(
+                                action: {
+                                    self.text = ""
+                                }
+                            ) {
                                 Image(systemName: "multiply.circle.fill")
                                     .foregroundColor(.gray)
                                     .padding(.trailing, 8)
@@ -42,12 +44,13 @@ struct SearchBar: View {
                 .onTapGesture {
                     self.isEditing = true
                 }
-            
-                .introspectTextField(customize: { textField in
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
-                        textField.becomeFirstResponder()
+                .introspectTextField(
+                    customize: { textField in
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
+                            textField.becomeFirstResponder()
+                        }
                     }
-                })
+                )
         }
     }
 }

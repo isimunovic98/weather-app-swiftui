@@ -8,9 +8,9 @@
 import Foundation
 import SwiftUI
 
-struct ErrorView : View {
+struct ErrorView: View {
     
-    let error : Error
+    let error: Error
     
     init(error: Error) {
         self.error = error

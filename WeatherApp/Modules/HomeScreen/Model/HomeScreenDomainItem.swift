@@ -8,19 +8,19 @@
 import Foundation
 
 struct HomeScreenDomainItem {
-    var backgroundImage : String
-    var currentTemperature : String
-    var weatherDescription : String
-    var cityName : String
-    var lowTemperature : String
-    var highTemperature : String
-    var windSpeed : String
-    var pressure : String
-    var humidity : String
-    var showWindSpeed : Bool
-    var showPressure : Bool
-    var showHumidity : Bool
-
+    var backgroundImage: String
+    var currentTemperature: String
+    var weatherDescription: String
+    var cityName: String
+    var lowTemperature: String
+    var highTemperature: String
+    var windSpeed: String
+    var pressure: String
+    var humidity: String
+    var showWindSpeed: Bool
+    var showPressure: Bool
+    var showHumidity: Bool
+    
     init() {
         backgroundImage = ""
         currentTemperature = ""
@@ -37,18 +37,18 @@ struct HomeScreenDomainItem {
     }
     
     init(
-        backgroundImage : String,
-        currentTemperature : String,
-        weatherDescription : String,
-        cityName : String,
-        lowTemperature : String,
-        highTemperature : String,
-        windSpeed : String,
-        pressure : String,
-        humidity : String,
-        showWindSpeed : Bool,
-        showPressure : Bool,
-        showHumidity : Bool
+        backgroundImage: String,
+        currentTemperature: String,
+        weatherDescription: String,
+        cityName: String,
+        lowTemperature: String,
+        highTemperature: String,
+        windSpeed: String,
+        pressure: String,
+        humidity: String,
+        showWindSpeed: Bool,
+        showPressure: Bool,
+        showHumidity: Bool
     ) {
         self.backgroundImage = backgroundImage
         self.currentTemperature = currentTemperature

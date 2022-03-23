@@ -14,10 +14,14 @@ class UserDefaultsManager {
     
     let encoder = JSONEncoder()
     let decoder = JSONDecoder()
-        
+    
     func fetchCurrentCity() -> GeoItem {
         var currentCity = [GeoItem]()
-        let defaultGeoItem = GeoItem(name: "Vienna", lat: "48.20849", lng: "16.37208")
+        let defaultGeoItem = GeoItem(
+            name: "Vienna",
+            lat: "48.20849",
+            lng: "16.37208"
+        )
         do {
             guard let decoded = defaults.data(forKey: "geo")
             else {
@@ -50,9 +54,10 @@ class UserDefaultsManager {
     func storeNewCity(geoItem: GeoItem) {
         let currentCity = geoItem
         var cityHistory = fetchCityHistory()
-        cityHistory = cityHistory.filter({ $0.name != currentCity.name })
+        cityHistory = cityHistory.filter {
+            $0.name != currentCity.name
+        }
         cityHistory.insert(currentCity, at: 0)
-        
         do {
             let data = try encoder.encode(cityHistory)
             defaults.set(data, forKey: "geo")
@@ -69,7 +74,13 @@ class UserDefaultsManager {
     }
     
     func fetchSettingsModel() -> SettingsScreenDomainItem {
-        let defaultSettings = SettingsScreenDomainItem(cities: fetchCityHistory(), humidity: true, pressure: true, wind: true, measuringUnit: "Metric")
+        let defaultSettings = SettingsScreenDomainItem(
+            cities: fetchCityHistory(),
+            humidity: true,
+            pressure: true,
+            wind: true,
+            measuringUnit: "Metric"
+        )
         do {
             guard let decoded = defaults.data(forKey: "settings")
             else {
@@ -84,9 +95,9 @@ class UserDefaultsManager {
     
     func removeCity(geoItem: GeoItem) {
         var cityHistory = fetchCityHistory()
-        cityHistory = cityHistory.filter({
+        cityHistory = cityHistory.filter {
             $0.name != geoItem.name
-        })
+        }
         do {
             let data = try encoder.encode(cityHistory)
             defaults.set(data, forKey: "geo")

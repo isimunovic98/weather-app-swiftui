@@ -8,17 +8,17 @@
 import Combine
 import Foundation
 
-class HomeScreenViewModel : ObservableObject {
+class HomeScreenViewModel: ObservableObject {
     
-    @Published var isLoading : Bool = false
-    @Published var error : Error?
-    @Published var screenData : HomeScreenDomainItem
+    @Published var isLoading: Bool = false
+    @Published var error: Error?
+    @Published var screenData: HomeScreenDomainItem
     
-    let weatherRepository : WeatherRepository
-    let persistence : UserDefaultsManager
+    let weatherRepository: WeatherRepository
+    let persistence: UserDefaultsManager
     var disposebag = Set<AnyCancellable>()
     
-    init(repository : WeatherRepository) {
+    init(repository: WeatherRepository) {
         self.weatherRepository = repository
         self.persistence = UserDefaultsManager()
         self.screenData = HomeScreenDomainItem()
@@ -67,17 +67,17 @@ class HomeScreenViewModel : ObservableObject {
         
         return HomeScreenDomainItem(
             backgroundImage: Handler.handleImageChoice(weather: response.weather[0].main, icon: response.weather[0].icon),
-            currentTemperature: (settings.measuringUnit == "Metric") ? String(Int(response.main.temp)) + " °C" : String(Int(response.main.temp)) + " °F",
+            currentTemperature: (settings.measuringUnit == "Metric") ? String(Int(response.main.temp)) + " °C": String(Int(response.main.temp)) + " °F",
             weatherDescription: response.weather[0].weatherDescription.capitalized + ".",
             cityName: response.name,
-            lowTemperature: settings.measuringUnit == "Metric" ? String(Int(response.main.tempMin)) + " °C" : String(Int(response.main.tempMin)) + " °F",
-            highTemperature: settings.measuringUnit == "Metric" ? String(Int(response.main.tempMax)) + " °C" : String(Int(response.main.tempMax)) + " °F",
-            windSpeed: settings.measuringUnit == "Metric" ? String(Int(response.wind.speed)) + " km/h" : String(Int(response.wind.speed)) + " mph",
+            lowTemperature: settings.measuringUnit == "Metric" ? String(Int(response.main.tempMin)) + " °C": String(Int(response.main.tempMin)) + " °F",
+            highTemperature: settings.measuringUnit == "Metric" ? String(Int(response.main.tempMax)) + " °C": String(Int(response.main.tempMax)) + " °F",
+            windSpeed: settings.measuringUnit == "Metric" ? String(Int(response.wind.speed)) + " km/h": String(Int(response.wind.speed)) + " mph",
             pressure: String(response.main.pressure) + " hPa",
             humidity: String(response.main.humidity) + "%",
-            showWindSpeed : settings.wind,
-            showPressure : settings.pressure,
-            showHumidity : settings.humidity
+            showWindSpeed: settings.wind,
+            showPressure: settings.pressure,
+            showHumidity: settings.humidity
         )
     }
 }

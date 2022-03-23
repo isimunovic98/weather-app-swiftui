@@ -9,11 +9,10 @@ import Combine
 import Foundation
 import SwiftUI
 
-class SettingsScreenViewModel : ObservableObject {
+class SettingsScreenViewModel: ObservableObject {
     
-    @Published var screenData : SettingsScreenDomainItem
-    
-    let persistence : UserDefaultsManager
+    @Published var screenData: SettingsScreenDomainItem
+    let persistence: UserDefaultsManager
     
     init() {
         self.persistence = UserDefaultsManager()
@@ -47,8 +46,6 @@ class SettingsScreenViewModel : ObservableObject {
         screenData.measuringUnit = unit
         persistence.storeSettingsModel(settings: screenData)
     }
-    
-    
     
     func toggleFeature(feature: String) {
         switch feature {

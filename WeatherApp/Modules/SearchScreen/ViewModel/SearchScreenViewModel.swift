@@ -7,18 +7,17 @@
 import Foundation
 import Combine
 
-class SearchScreenViewModel : ObservableObject {
+class SearchScreenViewModel: ObservableObject {
     
-    @Published var cities : [GeoItem]
+    @Published var cities: [GeoItem] = []
     
-    let locationRepository : LocationRepository
-    let persistence : UserDefaultsManager
+    let locationRepository: LocationRepository
+    let persistence: UserDefaultsManager
     var disposebag = Set<AnyCancellable>()
     
-    init(repository : LocationRepository) {
+    init(repository: LocationRepository) {
         self.locationRepository = repository
         self.persistence = UserDefaultsManager()
-        self.cities = []
     }
     
     func getLocation(cityName: String) {
@@ -36,20 +35,30 @@ class SearchScreenViewModel : ObservableObject {
             }
             .map { result -> [GeoItem] in
                 result.geonames.map { names in
-                    return GeoItem(name: names.name, lat: names.lat, lng: names.lng)
+                    return GeoItem(
+                        name: names.name,
+                        lat: names.lat,
+                        lng: names.lng
+                    )
                 }
             }
-            .sink(receiveCompletion: { completion in
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    self.cities = [GeoItem(name: "Error has occured: \(error.localizedDescription)", lat: "0", lng: "0")]
-                    break
-                }
-            }, receiveValue: { result in
-                self.cities = result
-            })
+            .sink(
+                receiveCompletion: { completion in
+                    switch completion {
+                    case .finished:
+                        break
+                    case .failure(let error):
+                        self.cities = [GeoItem(
+                            name: "Error has occured: \(error.localizedDescription)",
+                            lat: "0",
+                            lng: "0"
+                        )]
+                        break
+                    }
+                },
+                receiveValue: { result in
+                    self.cities = result
+                })
             .store(in: &disposebag)
     }
     

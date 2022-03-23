@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct SettingsScreenDomainItem : Codable {
-    var cities : [GeoItem]
-    var humidity : Bool
-    var pressure : Bool
-    var wind : Bool
+struct SettingsScreenDomainItem: Codable {
+    var cities: [GeoItem]
+    var humidity: Bool
+    var pressure: Bool
+    var wind: Bool
     var measuringUnit: String
     
     init() {

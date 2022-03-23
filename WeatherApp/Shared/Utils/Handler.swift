@@ -60,5 +60,4 @@ class Handler {
         }
         return String(charsModified)
     }
-    
 }

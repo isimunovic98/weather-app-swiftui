@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct HomeScreen: View {
-    @ObservedObject var viewModel : HomeScreenViewModel
+    @ObservedObject var viewModel: HomeScreenViewModel
     @State private var searchText = ""
     
     let screenHeight = UIScreen.main.bounds.height
     
-    init(viewmodel : HomeScreenViewModel) {
+    init(viewmodel: HomeScreenViewModel) {
         self.viewModel = viewmodel
     }
     
@@ -47,7 +47,8 @@ struct HomeScreen: View {
                     }
                 }
                 .navigationViewStyle(.stack)
-            }}
+            }
+        }
     }
     
     func renderBackgroundImage() -> some View {
@@ -96,7 +97,8 @@ struct HomeScreen: View {
                     .foregroundColor(.white)
             }
             .padding(.leading)
-        }.padding(.bottom)
+        }
+        .padding(.bottom)
     }
     
     func renderFeatures() -> some View {
@@ -171,8 +173,8 @@ struct HomeScreen: View {
                     .scaledToFit()
                     .frame(width: UIScreen.main.bounds.width * 0.1)
             }
-            NavigationLink (
-                destination: SearchView (
+            NavigationLink(
+                destination: SearchView(
                     backgroundImage: viewModel.screenData.backgroundImage,
                     viewModel: searchScreenViewModel)
             ) {

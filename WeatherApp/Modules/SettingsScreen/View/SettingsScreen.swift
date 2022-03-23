@@ -12,9 +12,9 @@ struct SettingsScreen: View {
     
     @Environment(\.presentationMode) var presentationMode
     
-    @ObservedObject var viewModel : SettingsScreenViewModel
+    @ObservedObject var viewModel: SettingsScreenViewModel
     
-    let backgroundImage : String
+    let backgroundImage: String
     
     init(backgroundImage: String, viewModel: SettingsScreenViewModel) {
         self.backgroundImage = backgroundImage
@@ -22,7 +22,7 @@ struct SettingsScreen: View {
         UITableView.appearance().backgroundColor = .white.withAlphaComponent(0)
     }
     
-    var body : some View {
+    var body: some View {
         renderContentView()
             .onAppear(perform: {viewModel.onAppear()})
             .navigationTitle("Settings")
@@ -32,9 +32,11 @@ struct SettingsScreen: View {
                 content: {
                     ToolbarItem(placement: .navigationBarLeading)
                     {
-                        Button(action: {
-                            self.presentationMode.wrappedValue.dismiss()
-                        })
+                        Button(
+                            action: {
+                                self.presentationMode.wrappedValue.dismiss()
+                            }
+                        )
                         {
                             HStack {
                                 Image(systemName: "chevron.backward")
@@ -77,30 +79,35 @@ struct SettingsScreen: View {
         return VStack {
             List {
                 Section(
-                    content: {
-                        ForEach(viewModel.screenData.cities, id: \.self) { city in
-                            HStack{
-                                Text(city.name).onTapGesture {
-                                    viewModel.selectedCity(geoItem: city)
-                                    self.presentationMode.wrappedValue.dismiss()
+                    content:
+                        {
+                            ForEach(viewModel.screenData.cities, id: \.self)
+                            { city in
+                                HStack {
+                                    Text(city.name)
+                                        .onTapGesture {
+                                            viewModel.selectedCity(geoItem: city)
+                                            self.presentationMode.wrappedValue.dismiss()
+                                        }
+                                    Spacer()
+                                    Image(systemName: "multiply.circle.fill")
+                                        .foregroundColor(.gray)
+                                        .onTapGesture {
+                                            viewModel.selectedDeleteCity(geoItem: city)
+                                        }
                                 }
-                                Spacer()
-                                Image(systemName: "multiply.circle.fill")
-                                    .foregroundColor(.gray)
-                                    .onTapGesture {
-                                        viewModel.selectedDeleteCity(geoItem: city)
-                                    }
                             }
-                        }.listRowBackground(Color.white.opacity(0.8))
-                    },
-                    header: {
-                        HStack {
-                            Text("History")
-                                .contrast(1)
-                                .font(.system(size: 30))
-                            Spacer()
+                            .listRowBackground(Color.white.opacity(0.8))
+                        },
+                    header:
+                        {
+                            HStack {
+                                Text("History")
+                                    .contrast(1)
+                                    .font(.system(size: 30))
+                                Spacer()
+                            }
                         }
-                    }
                 )
             }
             .listStyle(.insetGrouped)
@@ -108,9 +115,13 @@ struct SettingsScreen: View {
     }
     
     func renderUnitSelection() -> some View {
-        return RadioButtonGroup(items: ["Imperial", "Metric"] , selectedId: viewModel.persistence.fetchSettingsModel().measuringUnit) { selected in
-            viewModel.selectMeasuringUnit(unit: selected)
-        }
+        return RadioButtonGroup(
+            items: ["Imperial", "Metric"] ,
+            callback: { selected in
+                viewModel.selectMeasuringUnit(unit: selected)
+            },
+            selectedId: viewModel.persistence.fetchSettingsModel().measuringUnit
+        )
         .foregroundColor(.white)
         .padding()
     }
@@ -119,7 +130,8 @@ struct SettingsScreen: View {
         return VStack {
             CheckView(
                 isChecked: viewModel.screenData.humidity,
-                title: "Humidity", action: {
+                title: "Humidity",
+                action: {
                     viewModel.toggleFeature(feature: "humidity")
                 }
             )
@@ -133,7 +145,8 @@ struct SettingsScreen: View {
         return VStack {
             CheckView(
                 isChecked: viewModel.screenData.pressure,
-                title: "Pressure", action: {
+                title: "Pressure",
+                action: {
                     viewModel.toggleFeature(feature: "pressure")
                 }
             )
@@ -147,7 +160,8 @@ struct SettingsScreen: View {
         return VStack {
             CheckView(
                 isChecked: viewModel.screenData.wind,
-                title: "Wind speed", action: {
+                title: "Wind speed",
+                action: {
                     viewModel.toggleFeature(feature: "wind")
                 }
             )
