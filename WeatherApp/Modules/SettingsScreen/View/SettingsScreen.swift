@@ -54,29 +54,34 @@ struct SettingsScreen: View {
     }
     
     func renderLocationHistory() -> some View {
-        return VStack{
-            HStack {
-                Text("History")
-                    .font(.system(size: 40))
-                    .padding()
-                    .foregroundColor(.white)
-                Spacer()
-            }
+        return VStack {
             List {
-                ForEach(viewModel.screenData.cities , id: \.self) { city in
-                    HStack{
-                        Text(city.name).onTapGesture {
-                            viewModel.selectedCity(geoItem: city)
-                            self.presentationMode.wrappedValue.dismiss()
-                        }
-                        Spacer()
-                        Image(systemName: "multiply.circle.fill")
-                            .foregroundColor(.gray)
-                            .onTapGesture {
-                                viewModel.selectedDeleteCity(geoItem: city)
+                Section(
+                    content: {
+                        ForEach(viewModel.screenData.cities, id: \.self) { city in
+                            HStack{
+                                Text(city.name).onTapGesture {
+                                    viewModel.selectedCity(geoItem: city)
+                                    self.presentationMode.wrappedValue.dismiss()
+                                }
+                                Spacer()
+                                Image(systemName: "multiply.circle.fill")
+                                    .foregroundColor(.gray)
+                                    .onTapGesture {
+                                        viewModel.selectedDeleteCity(geoItem: city)
+                                    }
                             }
+                        }.listRowBackground(Color.white.opacity(0.8))
+                    },
+                    header: {
+                        HStack {
+                            Text("History")
+                                .font(.system(size: 30))
+                                .foregroundColor(.white)
+                            Spacer()
+                        }
                     }
-                }.listRowBackground(Color.white.opacity(0.8))
+                )
             }
         }
     }
