@@ -25,6 +25,27 @@ struct SettingsScreen: View {
     var body : some View {
         renderContentView()
             .onAppear(perform: {viewModel.onAppear()})
+            .navigationTitle("Settings")
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarBackButtonHidden(true)
+            .toolbar(
+                content: {
+                    ToolbarItem(placement: .navigationBarLeading)
+                    {
+                        Button(action: {
+                            self.presentationMode.wrappedValue.dismiss()
+                        })
+                        {
+                            HStack {
+                                Image(systemName: "chevron.backward")
+                                    .foregroundColor(.black)
+                                Text("Back")
+                                    .foregroundColor(.black)
+                            }
+                        }
+                    }
+                }
+            )
     }
     
     func renderContentView() -> some View {
