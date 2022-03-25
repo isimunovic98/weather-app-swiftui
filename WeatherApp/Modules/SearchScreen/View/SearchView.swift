@@ -25,6 +25,26 @@ struct SearchView: View {
     
     var body: some View {
         renderContentView()
+            .navigationTitle("Settings")
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarBackButtonHidden(true)
+            .toolbar(
+                content: {
+                    ToolbarItem(placement: .navigationBarLeading)
+                    {
+                        Button(
+                            action: {
+                                self.presentationMode.wrappedValue.dismiss()
+                            }
+                        )
+                        {
+                            Image(systemName: "chevron.backward")
+                                .foregroundColor(.black)
+                        }
+                    }
+                }
+            )
+        
     }
     
     func renderContentView() -> some View {
@@ -54,6 +74,7 @@ struct SearchView: View {
                     viewModel.getLocation(cityName: newCity)
                 }
             )
+            .padding()
     }
     
     func renderList() -> some View {

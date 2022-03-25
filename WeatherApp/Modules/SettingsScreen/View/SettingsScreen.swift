@@ -38,12 +38,8 @@ struct SettingsScreen: View {
                             }
                         )
                         {
-                            HStack {
-                                Image(systemName: "chevron.backward")
-                                    .foregroundColor(.black)
-                                Text("Back")
-                                    .foregroundColor(.black)
-                            }
+                            Image(systemName: "chevron.backward")
+                                .foregroundColor(.black)
                         }
                     }
                 }
