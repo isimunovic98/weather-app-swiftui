@@ -9,9 +9,9 @@ import CoreLocation
 
 class LocationProvider: NSObject, CLLocationManagerDelegate {
     
-    let locationManager : CLLocationManager
+    let locationManager: CLLocationManager
     
-    @Published var currentLocation : CLLocation?
+    @Published var currentLocation: CLLocation?
     
     override init() {
         self.locationManager = CLLocationManager()

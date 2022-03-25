@@ -19,53 +19,6 @@ class UserDefaultsManager {
         return defaults.publisher(for: \.currentCity).eraseToAnyPublisher()
     }
     
-    func fetchHumidity() -> Bool {
-        return defaults.bool(forKey: "humidity")
-    }
-    
-    func fetchPressure() -> Bool {
-        return defaults.bool(forKey: "pressure")
-    }
-    
-    func fetchWind() -> Bool {
-        return defaults.bool(forKey: "wind")
-    }
-    
-    func storeHumidity(value: Bool) {
-        defaults.set(value, forKey: "humidity")
-    }
-    
-    func storePressure(value: Bool) {
-        defaults.set(value, forKey: "pressure")
-    }
-    
-    func storeWind(value: Bool) {
-        defaults.set(value, forKey: "wind")
-    }
-    
-    func fetchMeasuringUnit() -> String {
-        var measuringUnit : String
-        do {
-            guard let decoded = defaults.data(forKey: "unit")
-            else {
-                return "Metric"
-            }
-            measuringUnit = try decoder.decode(String.self, from: decoded)
-        }
-        catch {
-            return "Metric"
-        }
-        return measuringUnit
-    }
-    
-    func storeMeasuringUnit(unit: String) {
-        do {
-            let data = try encoder.encode(unit)
-            defaults.set(data, forKey: "unit")
-        }
-        catch{}
-    }
-    
     func fetchCurrentCity() -> GeoItem {
         var currentCity = [GeoItem]()
         let defaultGeoItem = GeoItem(

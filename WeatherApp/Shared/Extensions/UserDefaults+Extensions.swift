@@ -12,7 +12,11 @@ extension UserDefaults {
         get {
             let decoder = JSONDecoder()
             var currentCity = [GeoItem]()
-            let defaultGeoItem = GeoItem(name: "Vienna", lat: "48.20849", lng: "16.37208")
+            let defaultGeoItem = GeoItem(
+                name: "Vienna",
+                lat: "48.20849",
+                lng: "16.37208"
+            )
             do {
                 guard let decoded = data(forKey: "geo")
                 else {

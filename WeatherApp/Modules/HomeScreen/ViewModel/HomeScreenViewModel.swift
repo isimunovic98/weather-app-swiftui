@@ -17,8 +17,6 @@ class HomeScreenViewModel: ObservableObject {
     
     var currentLocationIsSet : Bool = false
     
-    var currentLocationIsSet : Bool = false
-    
     let weatherRepository : WeatherRepository
     let persistence : UserDefaultsManager
     let locationManager = LocationProvider()
@@ -75,7 +73,7 @@ class HomeScreenViewModel: ObservableObject {
     
     func handleWeatherResponse(city: GeoItem) {
         self.isLoading = true
-        let units = persistence.fetchMeasuringUnit()
+        let units = persistence.fetchSettingsModel().measuringUnit
         weatherRepository.fetch(lat: city.lat, lon: city.lng, units: units)
             .subscribe(on: DispatchQueue.global(qos: .background))
             .receive(on: RunLoop.main)
