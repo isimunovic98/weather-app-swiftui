@@ -14,7 +14,11 @@ struct SearchView: View {
     
     @ObservedObject var viewModel: SearchScreenViewModel
     @State var text = ""
+    @State var shouldAnimate: Bool = false
     
+    let screenHeight = UIScreen.main.bounds.height
+    let screenWidth = UIScreen.main.bounds.width
+
     let backgroundImage: String
     
     init(backgroundImage: String, viewModel: SearchScreenViewModel) {
@@ -60,7 +64,6 @@ struct SearchView: View {
     func renderBackgroundImage() -> some View {
         return Image(backgroundImage)
             .resizable()
-            .ignoresSafeArea()
             .blur(radius: 20)
     }
     
@@ -73,6 +76,11 @@ struct SearchView: View {
                     viewModel.getLocation(cityName: newCity)
                 }
             )
+            .position(x: screenWidth/2.15 , y: shouldAnimate ? 20 : screenHeight)
+            .animation(.easeInOut(duration: 0.35), value: shouldAnimate)
+            .onAppear(perform: {
+                shouldAnimate.toggle()
+            })
             .padding()
     }
     
@@ -87,5 +95,7 @@ struct SearchView: View {
             }
             .listRowBackground(Color.white.opacity(0.8))
         }
+        .frame(height: screenHeight/1.3)
+        .animation(.easeInOut(duration: 0.35), value: shouldAnimate)
     }
 }

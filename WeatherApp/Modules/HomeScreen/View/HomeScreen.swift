@@ -46,7 +46,6 @@ struct HomeScreen: View {
                         }
                     }
                 }
-                .navigationViewStyle(.stack)
             }
         }
     }

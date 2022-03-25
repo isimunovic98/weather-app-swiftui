@@ -11,7 +11,7 @@ import Introspect
 struct SearchBar: View {
     @Binding var text: String
     
-    @State private var isEditing = false
+    @State private var isEditing = true
     
     var body: some View {
         HStack {
@@ -40,7 +40,6 @@ struct SearchBar: View {
                         }
                     }
                 )
-                .padding(.horizontal, 10)
                 .onTapGesture {
                     self.isEditing = true
                 }

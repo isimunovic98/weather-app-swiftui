@@ -28,6 +28,7 @@ struct SettingsScreen: View {
             .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarBackButtonHidden(true)
+            
             .toolbar(
                 content: {
                     ToolbarItem(placement: .navigationBarLeading)
@@ -68,6 +69,7 @@ struct SettingsScreen: View {
     func renderBackgroundImage() -> some View {
         return Image(backgroundImage)
             .resizable()
+            .ignoresSafeArea()
             .blur(radius: 20)
     }
     
@@ -100,13 +102,11 @@ struct SettingsScreen: View {
                             HStack {
                                 Text("History")
                                     .contrast(1)
-                                    .font(.system(size: 30))
                                 Spacer()
                             }
                         }
                 )
             }
-            .listStyle(.insetGrouped)
         }
     }
     
