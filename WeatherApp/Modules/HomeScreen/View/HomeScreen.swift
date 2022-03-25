@@ -102,12 +102,21 @@ struct HomeScreen: View {
     }
     
     func renderFeatures() -> some View {
-        return HStack {
-            renderHumidity()
-            renderPressure()
-            renderWind()
+        ZStack {
+            if viewModel.isAnyFeatureVisible() {
+                HStack {
+                    renderHumidity()
+                    renderPressure()
+                    renderWind()
+                }
+                .padding(.horizontal)
+            }
+            ZStack {
+                Spacer()
+                    .frame(minHeight: screenHeight/84, idealHeight: screenHeight/8.4, maxHeight: screenHeight/0.5)
+                    .fixedSize()
+            }
         }
-        .padding(.horizontal)
     }
     
     func renderHumidity() -> some View {

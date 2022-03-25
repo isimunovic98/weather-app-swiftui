@@ -62,6 +62,10 @@ class HomeScreenViewModel: ObservableObject {
             .store(in: &disposebag)
     }
     
+    func isAnyFeatureVisible() -> Bool {
+        return screenData.showHumidity || screenData.showPressure || screenData.showWindSpeed
+    }
+    
     func createScreenData(response: WeatherResponse) -> HomeScreenDomainItem {
         let settings = persistence.fetchSettingsModel()
         
