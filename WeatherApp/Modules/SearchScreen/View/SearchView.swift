@@ -44,7 +44,6 @@ struct SearchView: View {
                     }
                 }
             )
-        
     }
     
     func renderContentView() -> some View {
