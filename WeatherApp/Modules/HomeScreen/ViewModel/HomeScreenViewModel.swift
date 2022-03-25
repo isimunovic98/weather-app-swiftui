@@ -17,6 +17,8 @@ class HomeScreenViewModel: ObservableObject {
     
     var currentLocationIsSet : Bool = false
     
+    var currentLocationIsSet : Bool = false
+    
     let weatherRepository : WeatherRepository
     let persistence : UserDefaultsManager
     let locationManager = LocationProvider()
