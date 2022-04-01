@@ -44,7 +44,10 @@ class HomeScreenViewModel: ObservableObject {
             .sink(receiveValue: { currentLocation in
                 if let location = currentLocation {
                     location.fetchCityName { city, error in
-                        guard let city = city, error == nil else { return }
+                        guard let city = city, error == nil
+                        else {
+                            return
+                        }
                         let newCity = GeoItem(
                             name: city,
                             lat: String(location.coordinate.latitude),
@@ -64,9 +67,7 @@ class HomeScreenViewModel: ObservableObject {
             .subscribe(on: DispatchQueue.global(qos: .background))
             .receive(on: RunLoop.main)
             .sink(receiveValue: { newCurrentCity in
-                if self.currentLocationIsSet {
                     self.handleWeatherResponse(city: newCurrentCity)
-                }
             })
             .store(in: &disposebag)
     }
