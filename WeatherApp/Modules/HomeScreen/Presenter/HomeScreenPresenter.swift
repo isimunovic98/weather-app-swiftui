@@ -9,7 +9,7 @@ import Combine
 import Foundation
 import CoreLocation
 
-class HomeScreenViewModel: ObservableObject {
+class HomeScreenPresenter: ObservableObject {
     
     @Published var isLoading: Bool = false
     @Published var error: Error?
