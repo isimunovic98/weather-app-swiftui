@@ -6,3 +6,12 @@
 //
 
 import Foundation
+import SwiftUI
+
+class HomeScreenRouter {
+    func makeHomeScreen() -> some View {
+        let homeScreenInteractor = HomeScreenInteractor()
+        let homeScreenPresenter = HomeScreenPresenter(interactor: homeScreenInteractor)
+        return HomeScreen(presenter: homeScreenPresenter)
+    }
+}

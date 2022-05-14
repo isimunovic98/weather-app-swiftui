@@ -8,29 +8,28 @@
 import SwiftUI
 
 struct HomeScreen: View {
-    @ObservedObject var viewModel: HomeScreenViewModel
+    @ObservedObject var presenter: HomeScreenPresenter
     @State private var searchText = ""
     
     let screenHeight = UIScreen.main.bounds.height
     
-    init(viewmodel: HomeScreenViewModel) {
-        self.viewModel = viewmodel
+    init(presenter: HomeScreenPresenter) {
+        self.presenter = presenter
     }
     
     var body: some View {
         NavigationView {
-            if let error = viewModel.error {
+            if let error = presenter.error {
                 ErrorView(error: error)
             } else {
                 renderContentView()
-                    .onAppear(perform: { viewModel.onAppear() })
             }
         }
     }
     
     func renderContentView() -> some View {
         ZStack{
-            if viewModel.isLoading {
+            if presenter.isLoading {
                 LoaderView()
             } else {
                 ZStack {
@@ -51,18 +50,18 @@ struct HomeScreen: View {
     }
     
     func renderBackgroundImage() -> some View {
-        return Image(viewModel.screenData.backgroundImage)
+        return Image(presenter.screenData.backgroundImage)
             .resizable()
             .ignoresSafeArea()
     }
     
     func renderCurrentWeatherInfo() -> some View {
         return VStack {
-            Text(String(viewModel.screenData.currentTemperature))
+            Text(String(presenter.screenData.currentTemperature))
                 .font(.system(size: screenHeight/12).bold())
                 .foregroundColor(.white)
                 .padding()
-            Text(viewModel.screenData.weatherDescription)
+            Text(presenter.screenData.weatherDescription)
                 .font(.system(size: screenHeight/30).bold())
                 .foregroundColor(.white)
                 .padding()
@@ -70,7 +69,7 @@ struct HomeScreen: View {
     }
     
     func renderCityName() -> some View {
-        return Text(viewModel.screenData.cityName)
+        return Text(presenter.screenData.cityName)
             .foregroundColor(.white)
             .font(.system(size: screenHeight/35).bold())
             .padding()
@@ -79,7 +78,7 @@ struct HomeScreen: View {
     func renderHighLowTemperature() -> some View {
         return HStack {
             VStack {
-                Text(String(viewModel.screenData.lowTemperature))
+                Text(String(presenter.screenData.lowTemperature))
                     .foregroundColor(.white)
                     .font(.system(size: screenHeight/30))
                     .padding(EdgeInsets(top: screenHeight/40, leading: 0, bottom: screenHeight/1000, trailing: 0))
@@ -88,7 +87,7 @@ struct HomeScreen: View {
             }
             .padding(.trailing)
             VStack {
-                Text(String(viewModel.screenData.highTemperature))
+                Text(String(presenter.screenData.highTemperature))
                     .foregroundColor(.white)
                     .font(.system(size: screenHeight/30))
                     .padding(EdgeInsets(top: screenHeight/40, leading: 0, bottom: screenHeight/1000, trailing: 0))
@@ -102,14 +101,14 @@ struct HomeScreen: View {
     
     func renderFeatures() -> some View {
         ZStack {
-            if viewModel.isAnyFeatureVisible() {
+//            if presenter.isAnyFeatureVisible() {
                 HStack {
                     renderHumidity()
                     renderPressure()
                     renderWind()
                 }
                 .padding(.horizontal)
-            }
+//            }
             ZStack {
                 Spacer()
                     .frame(minHeight: screenHeight/84, idealHeight: screenHeight/8.4, maxHeight: screenHeight/0.5)
@@ -120,12 +119,12 @@ struct HomeScreen: View {
     
     func renderHumidity() -> some View {
         HStack {
-            if viewModel.screenData.showHumidity == true {
+            if presenter.screenData.showHumidity == true {
                 VStack {
                     Image("humidity_icon")
                         .padding(.top)
                         .scaledToFit()
-                    Text(String(viewModel.screenData.humidity))
+                    Text(String(presenter.screenData.humidity))
                         .font(.system(size: screenHeight/45))
                         .foregroundColor(.white)
                 }.padding(.horizontal)
@@ -135,12 +134,12 @@ struct HomeScreen: View {
     
     func renderPressure() -> some View {
         HStack {
-            if viewModel.screenData.showPressure == true {
+            if presenter.screenData.showPressure == true {
                 VStack {
                     Image("pressure_icon")
                         .padding(.top)
                         .scaledToFit()
-                    Text(String(viewModel.screenData.pressure))
+                    Text(String(presenter.screenData.pressure))
                         .font(.system(size: screenHeight/45))
                         .foregroundColor(.white)
                 }.padding(.horizontal)
@@ -150,12 +149,12 @@ struct HomeScreen: View {
     
     func renderWind() -> some View {
         HStack {
-            if viewModel.screenData.showWindSpeed == true {
+            if presenter.screenData.showWindSpeed == true {
                 VStack {
                     Image("wind_icon")
                         .padding(.top)
                         .scaledToFit()
-                    Text(String(viewModel.screenData.windSpeed))
+                    Text(String(presenter.screenData.windSpeed))
                         .font(.system(size: screenHeight/45))
                         .foregroundColor(.white)
                 }.padding(.horizontal)
@@ -171,7 +170,7 @@ struct HomeScreen: View {
         return HStack {
             NavigationLink(
                 destination: SettingsScreen(
-                    backgroundImage: viewModel.screenData.backgroundImage,
+                    backgroundImage: presenter.screenData.backgroundImage,
                     viewModel: settingsScreenViewModel
                 )
             ) {
@@ -183,7 +182,7 @@ struct HomeScreen: View {
             }
             NavigationLink(
                 destination: SearchView(
-                    backgroundImage: viewModel.screenData.backgroundImage,
+                    backgroundImage: presenter.screenData.backgroundImage,
                     viewModel: searchScreenViewModel)
             ) {
                 SearchBarDummy()
@@ -196,10 +195,7 @@ struct HomeScreen: View {
 struct ContentView_Previews: PreviewProvider {
     
     static var previews: some View {
-        
-        let weatherRepository = WeatherRepositoryImpl()
-        let homeScreenViewModel = HomeScreenViewModel(repository: weatherRepository)
-        
-        HomeScreen(viewmodel: homeScreenViewModel)
+        let homeScreenRouter = HomeScreenRouter()
+        homeScreenRouter.makeHomeScreen()
     }
 }

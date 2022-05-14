@@ -12,9 +12,8 @@ struct WeatherAppApp: App {
     
     var body: some Scene {
         WindowGroup {
-            let weatherRepository = WeatherRepositoryImpl()
-            let homeScreenViewModel = HomeScreenViewModel(repository: weatherRepository)
-            HomeScreen(viewmodel: homeScreenViewModel)
+            let homeScreenRouter = HomeScreenRouter()
+            homeScreenRouter.makeHomeScreen()
         }
     }
 }
