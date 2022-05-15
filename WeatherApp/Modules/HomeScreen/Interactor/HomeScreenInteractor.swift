@@ -15,7 +15,7 @@ class HomeScreenInteractor {
     @Published var isLoading: Bool = false
     @Published var error: Error?
     @Published var model = HomeScreenDomainItem()
-
+    
     
     let weatherRepository = WeatherRepositoryImpl()
     let persistence = UserDefaultsManager()

@@ -12,24 +12,24 @@ struct SearchView: View {
     
     @Environment(\.presentationMode) var presentationMode
     
-    @ObservedObject var viewModel: SearchScreenViewModel
+    @ObservedObject var presenter: SearchScreenPresenter
     @State var text = ""
     @State var shouldAnimate: Bool = false
     
     let screenHeight = UIScreen.main.bounds.height
     let screenWidth = UIScreen.main.bounds.width
-
+    
     let backgroundImage: String
     
-    init(backgroundImage: String, viewModel: SearchScreenViewModel) {
+    init(backgroundImage: String, presenter: SearchScreenPresenter) {
         self.backgroundImage = backgroundImage
-        self.viewModel = viewModel
+        self.presenter = presenter
         UITableView.appearance().backgroundColor = .white.withAlphaComponent(0)
     }
     
     var body: some View {
         renderContentView()
-            .navigationTitle("Settings")
+            .navigationTitle("Search")
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarBackButtonHidden(true)
             .toolbar(
@@ -73,7 +73,7 @@ struct SearchView: View {
             .onChange(
                 of: text,
                 perform: { newCity in
-                    viewModel.getLocation(cityName: newCity)
+                    presenter.getLocation(cityName: newCity)
                 }
             )
             .position(x: screenWidth/2.15 , y: shouldAnimate ? 20 : screenHeight)
@@ -86,10 +86,10 @@ struct SearchView: View {
     
     func renderList() -> some View {
         return List {
-            ForEach(viewModel.cities , id: \.self) { city in
+            ForEach(presenter.cities , id: \.self) { city in
                 Text(city.name)
                     .onTapGesture {
-                        viewModel.didSelectCity(geoItem: city)
+                        presenter.didSelectCity(geoItem: city)
                         self.presentationMode.wrappedValue.dismiss()
                     }
             }

@@ -1,15 +1,13 @@
 //
-//  SettingsScreenViewModel.swift
+//  SettingsScreenInteractor.swift
 //  WeatherApp (iOS)
 //
-//  Created by Domagoj Bunoza on 03.03.2022..
+//  Created by Domagoj Bunoza on 15.05.2022..
 //
 
-import Combine
 import Foundation
-import SwiftUI
 
-class SettingsScreenViewModel: ObservableObject {
+class SettingsScreenInteractor {
     
     @Published var screenData: SettingsScreenDomainItem
     let persistence: UserDefaultsManager

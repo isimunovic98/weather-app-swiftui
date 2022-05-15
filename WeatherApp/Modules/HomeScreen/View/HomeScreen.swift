@@ -23,6 +23,9 @@ struct HomeScreen: View {
                 ErrorView(error: error)
             } else {
                 renderContentView()
+                    .onAppear {
+                        presenter.setupData()
+                    }
             }
         }
     }
@@ -101,14 +104,14 @@ struct HomeScreen: View {
     
     func renderFeatures() -> some View {
         ZStack {
-//            if presenter.isAnyFeatureVisible() {
-                HStack {
-                    renderHumidity()
-                    renderPressure()
-                    renderWind()
-                }
-                .padding(.horizontal)
-//            }
+            //            if presenter.isAnyFeatureVisible() {
+            HStack {
+                renderHumidity()
+                renderPressure()
+                renderWind()
+            }
+            .padding(.horizontal)
+            //            }
             ZStack {
                 Spacer()
                     .frame(minHeight: screenHeight/84, idealHeight: screenHeight/8.4, maxHeight: screenHeight/0.5)
@@ -163,16 +166,9 @@ struct HomeScreen: View {
     }
     
     func renderFooter() -> some View {
-        let locationRepository = LocationRepositoryImpl()
-        let searchScreenViewModel = SearchScreenViewModel(repository: locationRepository)
-        let settingsScreenViewModel = SettingsScreenViewModel()
-        
         return HStack {
-            NavigationLink(
-                destination: SettingsScreen(
-                    backgroundImage: presenter.screenData.backgroundImage,
-                    viewModel: settingsScreenViewModel
-                )
+            presenter.settingsScreenLinkBuilder(
+                backgroundImage: presenter.screenData.backgroundImage
             ) {
                 Image(systemName: "slider.vertical.3")
                     .resizable()
@@ -180,11 +176,7 @@ struct HomeScreen: View {
                     .scaledToFit()
                     .frame(width: UIScreen.main.bounds.width * 0.1)
             }
-            NavigationLink(
-                destination: SearchView(
-                    backgroundImage: presenter.screenData.backgroundImage,
-                    viewModel: searchScreenViewModel)
-            ) {
+            presenter.searchScreenLinkBuilder {
                 SearchBarDummy()
             }
         }

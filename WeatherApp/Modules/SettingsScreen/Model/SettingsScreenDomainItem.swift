@@ -22,7 +22,13 @@ struct SettingsScreenDomainItem: Codable {
         self.measuringUnit = ""
     }
     
-    init(cities: [GeoItem], humidity: Bool, pressure: Bool, wind: Bool, measuringUnit: String) {
+    init(
+        cities: [GeoItem],
+        humidity: Bool,
+        pressure: Bool,
+        wind: Bool,
+        measuringUnit: String
+    ) {
         self.cities = cities
         self.humidity = humidity
         self.pressure = pressure

@@ -11,7 +11,7 @@
 		C502F2BB27CE9C780078F260 /* WeatherResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C502F2BA27CE9C780078F260 /* WeatherResponse.swift */; };
 		C502F2BC27CE9C780078F260 /* WeatherResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C502F2BA27CE9C780078F260 /* WeatherResponse.swift */; };
 		C50E24ED27D0B6CF003E1ACF /* SettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50E24EC27D0B6CF003E1ACF /* SettingsScreen.swift */; };
-		C50E24EF27D0B786003E1ACF /* SettingsScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50E24EE27D0B786003E1ACF /* SettingsScreenViewModel.swift */; };
+		C50E24EF27D0B786003E1ACF /* SettingsScreenPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50E24EE27D0B786003E1ACF /* SettingsScreenPresenter.swift */; };
 		C50E24F327D0C732003E1ACF /* RadioButtonGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50E24F227D0C732003E1ACF /* RadioButtonGroup.swift */; };
 		C50E24F727D0D694003E1ACF /* CheckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50E24F627D0D694003E1ACF /* CheckView.swift */; };
 		C532E72527CE69AD00CBEE79 /* SerializationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C532E72427CE69AD00CBEE79 /* SerializationManager.swift */; };
@@ -20,11 +20,15 @@
 		C532E72927CE6C3900CBEE79 /* GeoResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C532E72727CE6C3900CBEE79 /* GeoResponse.swift */; };
 		C54D8C5A27CFB98200242A69 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54D8C5927CFB98200242A69 /* SearchView.swift */; };
 		C54D8C5C27CFC1C300242A69 /* SearchbarDummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54D8C5B27CFC1C300242A69 /* SearchbarDummy.swift */; };
-		C54D8C5E27CFC5BE00242A69 /* SearchScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54D8C5D27CFC5BE00242A69 /* SearchScreenViewModel.swift */; };
+		C54D8C5E27CFC5BE00242A69 /* SearchScreenPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54D8C5D27CFC5BE00242A69 /* SearchScreenPresenter.swift */; };
 		C54D8C6027CFD50400242A69 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54D8C5F27CFD50400242A69 /* UserDefaultsManager.swift */; };
 		C54D8C6227CFD57700242A69 /* GeoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54D8C6127CFD57700242A69 /* GeoItem.swift */; };
 		C54D8C6327CFF43800242A69 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54D8C5F27CFD50400242A69 /* UserDefaultsManager.swift */; };
 		C55E8CE027D005EA008BBB62 /* SearchbarDummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54D8C5B27CFC1C300242A69 /* SearchbarDummy.swift */; };
+		C55EA04F283109C20075FD27 /* SearchScreenRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55EA04E283109C20075FD27 /* SearchScreenRouter.swift */; };
+		C55EA05128310A270075FD27 /* SearchScreenInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55EA05028310A270075FD27 /* SearchScreenInteractor.swift */; };
+		C55EA057283116A30075FD27 /* SettingsScreenInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55EA056283116A30075FD27 /* SettingsScreenInteractor.swift */; };
+		C55EA05928311A300075FD27 /* SettingsScreenRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55EA05828311A300075FD27 /* SettingsScreenRouter.swift */; };
 		C569FB5C27DD471D00533AF0 /* SettingsScreenDomainItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C569FB5B27DD471D00533AF0 /* SettingsScreenDomainItem.swift */; };
 		C57904E427CD79A8006971BA /* WeatherAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C57904D427CD79A6006971BA /* WeatherAppApp.swift */; };
 		C57904E527CD79A8006971BA /* WeatherAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C57904D427CD79A6006971BA /* WeatherAppApp.swift */; };
@@ -67,16 +71,20 @@
 		AA7F7DED17F8CE8766FA3EAC /* Pods-WeatherApp (iOS).staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeatherApp (iOS).staging.xcconfig"; path = "Target Support Files/Pods-WeatherApp (iOS)/Pods-WeatherApp (iOS).staging.xcconfig"; sourceTree = "<group>"; };
 		C502F2BA27CE9C780078F260 /* WeatherResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherResponse.swift; sourceTree = "<group>"; };
 		C50E24EC27D0B6CF003E1ACF /* SettingsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreen.swift; sourceTree = "<group>"; };
-		C50E24EE27D0B786003E1ACF /* SettingsScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreenViewModel.swift; sourceTree = "<group>"; };
+		C50E24EE27D0B786003E1ACF /* SettingsScreenPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreenPresenter.swift; sourceTree = "<group>"; };
 		C50E24F227D0C732003E1ACF /* RadioButtonGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButtonGroup.swift; sourceTree = "<group>"; };
 		C50E24F627D0D694003E1ACF /* CheckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckView.swift; sourceTree = "<group>"; };
 		C532E72427CE69AD00CBEE79 /* SerializationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SerializationManager.swift; sourceTree = "<group>"; };
 		C532E72727CE6C3900CBEE79 /* GeoResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoResponse.swift; sourceTree = "<group>"; };
 		C54D8C5927CFB98200242A69 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		C54D8C5B27CFC1C300242A69 /* SearchbarDummy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchbarDummy.swift; sourceTree = "<group>"; };
-		C54D8C5D27CFC5BE00242A69 /* SearchScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchScreenViewModel.swift; sourceTree = "<group>"; };
+		C54D8C5D27CFC5BE00242A69 /* SearchScreenPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchScreenPresenter.swift; sourceTree = "<group>"; };
 		C54D8C5F27CFD50400242A69 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		C54D8C6127CFD57700242A69 /* GeoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoItem.swift; sourceTree = "<group>"; };
+		C55EA04E283109C20075FD27 /* SearchScreenRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchScreenRouter.swift; sourceTree = "<group>"; };
+		C55EA05028310A270075FD27 /* SearchScreenInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchScreenInteractor.swift; sourceTree = "<group>"; };
+		C55EA056283116A30075FD27 /* SettingsScreenInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreenInteractor.swift; sourceTree = "<group>"; };
+		C55EA05828311A300075FD27 /* SettingsScreenRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreenRouter.swift; sourceTree = "<group>"; };
 		C569FB5B27DD471D00533AF0 /* SettingsScreenDomainItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreenDomainItem.swift; sourceTree = "<group>"; };
 		C57904D427CD79A6006971BA /* WeatherAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherAppApp.swift; sourceTree = "<group>"; };
 		C57904D527CD79A6006971BA /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
@@ -164,8 +172,10 @@
 		C50E24EB27D0B6BB003E1ACF /* SettingsScreen */ = {
 			isa = PBXGroup;
 			children = (
+				C55EA055283115A80075FD27 /* Router */,
+				C55EA053283115870075FD27 /* Interactor */,
 				C569FB5A27DD470600533AF0 /* Model */,
-				C50E24F127D0B792003E1ACF /* ViewModel */,
+				C50E24F127D0B792003E1ACF /* Presenter */,
 				C50E24F027D0B78A003E1ACF /* View */,
 			);
 			path = SettingsScreen;
@@ -180,12 +190,12 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		C50E24F127D0B792003E1ACF /* ViewModel */ = {
+		C50E24F127D0B792003E1ACF /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
-				C50E24EE27D0B786003E1ACF /* SettingsScreenViewModel.swift */,
+				C50E24EE27D0B786003E1ACF /* SettingsScreenPresenter.swift */,
 			);
-			path = ViewModel;
+			path = Presenter;
 			sourceTree = "<group>";
 		};
 		C512984E27D2771400566FDF /* SubView */ = {
@@ -202,7 +212,7 @@
 			children = (
 				C5C0FA5D282FE1080050C2DB /* Router */,
 				C5C0FA5A282FDD2F0050C2DB /* Interactor */,
-				C5BEDF6F27D6AD7D00EA7AE9 /* Model */,
+				C5BEDF6F27D6AD7D00EA7AE9 /* Entitiy */,
 				C5ACC75F27CE663500B729F6 /* Presenter */,
 				C5ACC75E27CE662000B729F6 /* View */,
 			);
@@ -212,7 +222,10 @@
 		C54D8C5827CFB97100242A69 /* SearchScreen */ = {
 			isa = PBXGroup;
 			children = (
-				C54D8C6627CFF46000242A69 /* ViewModel */,
+				C55EA052283114AD0075FD27 /* Entity */,
+				C55EA04D2831098B0075FD27 /* Router */,
+				C55EA04C283109810075FD27 /* Interactor */,
+				C54D8C6627CFF46000242A69 /* Presenter */,
 				C54D8C6527CFF45A00242A69 /* View */,
 			);
 			path = SearchScreen;
@@ -236,12 +249,12 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		C54D8C6627CFF46000242A69 /* ViewModel */ = {
+		C54D8C6627CFF46000242A69 /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
-				C54D8C5D27CFC5BE00242A69 /* SearchScreenViewModel.swift */,
+				C54D8C5D27CFC5BE00242A69 /* SearchScreenPresenter.swift */,
 			);
-			path = ViewModel;
+			path = Presenter;
 			sourceTree = "<group>";
 		};
 		C55E8CDF27D005E1008BBB62 /* SubView */ = {
@@ -258,6 +271,46 @@
 				C5ACC75B27CE4A8100B729F6 /* Searchbar.swift */,
 			);
 			path = SubView;
+			sourceTree = "<group>";
+		};
+		C55EA04C283109810075FD27 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				C55EA05028310A270075FD27 /* SearchScreenInteractor.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		C55EA04D2831098B0075FD27 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				C55EA04E283109C20075FD27 /* SearchScreenRouter.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		C55EA052283114AD0075FD27 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				C54D8C6127CFD57700242A69 /* GeoItem.swift */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		C55EA053283115870075FD27 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				C55EA056283116A30075FD27 /* SettingsScreenInteractor.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		C55EA055283115A80075FD27 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				C55EA05828311A300075FD27 /* SettingsScreenRouter.swift */,
+			);
+			path = Router;
 			sourceTree = "<group>";
 		};
 		C569FB5A27DD470600533AF0 /* Model */ = {
@@ -368,18 +421,17 @@
 			path = Networking;
 			sourceTree = "<group>";
 		};
-		C5BEDF6F27D6AD7D00EA7AE9 /* Model */ = {
+		C5BEDF6F27D6AD7D00EA7AE9 /* Entitiy */ = {
 			isa = PBXGroup;
 			children = (
 				C5BEDF7027D6AD8F00EA7AE9 /* HomeScreenDomainItem.swift */,
 			);
-			path = Model;
+			path = Entitiy;
 			sourceTree = "<group>";
 		};
 		C5BEDF7227D6BC1800EA7AE9 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				C54D8C6127CFD57700242A69 /* GeoItem.swift */,
 				C502F2BA27CE9C780078F260 /* WeatherResponse.swift */,
 				C532E72727CE6C3900CBEE79 /* GeoResponse.swift */,
 			);
@@ -580,10 +632,12 @@
 				C57DD34827D163C90012BC03 /* WeatherRepository.swift in Sources */,
 				C5C0FA5F282FE11B0050C2DB /* HomeScreenRouter.swift in Sources */,
 				C5FD56F327E796D600BC3977 /* CLLocation+Extensions.swift in Sources */,
-				C54D8C5E27CFC5BE00242A69 /* SearchScreenViewModel.swift in Sources */,
+				C55EA04F283109C20075FD27 /* SearchScreenRouter.swift in Sources */,
+				C54D8C5E27CFC5BE00242A69 /* SearchScreenPresenter.swift in Sources */,
+				C55EA057283116A30075FD27 /* SettingsScreenInteractor.swift in Sources */,
 				C50E24F327D0C732003E1ACF /* RadioButtonGroup.swift in Sources */,
 				C569FB5C27DD471D00533AF0 /* SettingsScreenDomainItem.swift in Sources */,
-				C50E24EF27D0B786003E1ACF /* SettingsScreenViewModel.swift in Sources */,
+				C50E24EF27D0B786003E1ACF /* SettingsScreenPresenter.swift in Sources */,
 				C57DD34627D160F20012BC03 /* WeatherRepositoryImpl.swift in Sources */,
 				C5FD56F027E77C4400BC3977 /* LocationProvider.swift in Sources */,
 				C5BEDF7127D6AD8F00EA7AE9 /* HomeScreenDomainItem.swift in Sources */,
@@ -599,8 +653,10 @@
 				C5ACC76C27CE670900B729F6 /* NetworkError.swift in Sources */,
 				C5ECD86327E3B4DE00DA33B0 /* LoaderView.swift in Sources */,
 				C57DD34127D14DAD0012BC03 /* Handler.swift in Sources */,
+				C55EA05928311A300075FD27 /* SettingsScreenRouter.swift in Sources */,
 				C50E24ED27D0B6CF003E1ACF /* SettingsScreen.swift in Sources */,
 				C5FD56F527E7997A00BC3977 /* UserDefaults+Extensions.swift in Sources */,
+				C55EA05128310A270075FD27 /* SearchScreenInteractor.swift in Sources */,
 				C57904E627CD79A8006971BA /* HomeScreen.swift in Sources */,
 				C5ACC76127CE664800B729F6 /* HomeScreenPresenter.swift in Sources */,
 				C5C0FA5C282FDD410050C2DB /* HomeScreenInteractor.swift in Sources */,

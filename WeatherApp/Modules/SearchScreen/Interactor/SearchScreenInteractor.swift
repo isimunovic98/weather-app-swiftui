@@ -1,13 +1,15 @@
 //
-//  SearchScreenViewModel.swift
+//  SearchScreenInteractor.swift
 //  WeatherApp (iOS)
 //
-//  Created by Domagoj Bunoza on 02.03.2022..
+//  Created by Domagoj Bunoza on 15.05.2022..
 //
+
 import Foundation
 import Combine
+import SwiftUI
 
-class SearchScreenViewModel: ObservableObject {
+class SearchScreenInteractor : ObservableObject {
     
     @Published var cities: [GeoItem] = []
     
@@ -15,8 +17,8 @@ class SearchScreenViewModel: ObservableObject {
     let persistence: UserDefaultsManager
     var disposebag = Set<AnyCancellable>()
     
-    init(repository: LocationRepository) {
-        self.locationRepository = repository
+    init() {
+        self.locationRepository = LocationRepositoryImpl()
         self.persistence = UserDefaultsManager()
     }
     
@@ -65,4 +67,5 @@ class SearchScreenViewModel: ObservableObject {
     func didSelectCity(geoItem: GeoItem) {
         persistence.storeNewCity(geoItem: geoItem)
     }
+    
 }

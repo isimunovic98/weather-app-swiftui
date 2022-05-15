@@ -8,10 +8,13 @@
 import Combine
 import Foundation
 import CoreLocation
+import SwiftUI
 
 class HomeScreenPresenter: ObservableObject {
     
     let interactor: HomeScreenInteractor
+    let searchScreenRouter = SearchScreenRouter()
+    let settingsScreenRouter = SettingsScreenRouter()
     var isLoading: Bool = false
     var error: Error?
     
@@ -21,6 +24,10 @@ class HomeScreenPresenter: ObservableObject {
     
     init(interactor: HomeScreenInteractor) {
         self.interactor = interactor
+        setupBindings()
+    }
+    
+    func setupBindings() {
         setupInteractor()
         setupError()
         setupLoading()
@@ -50,6 +57,31 @@ class HomeScreenPresenter: ObservableObject {
             interactor.setupLocationListener()
         }
         interactor.requestWeatherUpdates()
+    }
+    
+    func searchScreenLinkBuilder<Content: View>(
+        @ViewBuilder content: () -> Content
+    ) -> some View {
+        NavigationLink(
+            destination: searchScreenRouter.makeSearchScreenRouter(
+                backgroundImage: screenData.backgroundImage
+            )
+        ) {
+            content()
+        }
+    }
+    
+    func settingsScreenLinkBuilder<Content: View>(
+        backgroundImage: String,
+        @ViewBuilder content: () -> Content
+    ) -> some View {
+        NavigationLink(
+            destination: settingsScreenRouter.makeSettingsScreen(
+                backgroundImage: screenData.backgroundImage
+            )
+        ) {
+            content()
+        }
     }
     
 }

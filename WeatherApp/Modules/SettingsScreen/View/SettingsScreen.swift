@@ -12,23 +12,23 @@ struct SettingsScreen: View {
     
     @Environment(\.presentationMode) var presentationMode
     
-    @ObservedObject var viewModel: SettingsScreenViewModel
+    @ObservedObject var presenter: SettingsScreenPresenter
     
     let backgroundImage: String
     
-    init(backgroundImage: String, viewModel: SettingsScreenViewModel) {
+    init(backgroundImage: String, presenter: SettingsScreenPresenter) {
         self.backgroundImage = backgroundImage
-        self.viewModel = viewModel
+        self.presenter = presenter
         UITableView.appearance().backgroundColor = .white.withAlphaComponent(0)
     }
     
     var body: some View {
         renderContentView()
-            .onAppear(perform: {viewModel.onAppear()})
+            .onAppear(perform: {presenter.onAppear()})
             .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarBackButtonHidden(true)
-            
+        
             .toolbar(
                 content: {
                     ToolbarItem(placement: .navigationBarLeading)
@@ -79,19 +79,19 @@ struct SettingsScreen: View {
                 Section(
                     content:
                         {
-                            ForEach(viewModel.screenData.cities, id: \.self)
+                            ForEach(presenter.settingsData.cities, id: \.self)
                             { city in
                                 HStack {
                                     Text(city.name)
                                         .onTapGesture {
-                                            viewModel.selectedCity(geoItem: city)
+                                            presenter.selectedCity(geoItem: city)
                                             self.presentationMode.wrappedValue.dismiss()
                                         }
                                     Spacer()
                                     Image(systemName: "multiply.circle.fill")
                                         .foregroundColor(.gray)
                                         .onTapGesture {
-                                            viewModel.selectedDeleteCity(geoItem: city)
+                                            presenter.selectedDeleteCity(geoItem: city)
                                         }
                                 }
                             }
@@ -114,9 +114,9 @@ struct SettingsScreen: View {
         return RadioButtonGroup(
             items: ["Imperial", "Metric"] ,
             callback: { selected in
-                viewModel.selectMeasuringUnit(unit: selected)
+                presenter.selectMeasuringUnit(unit: selected)
             },
-            selectedId: viewModel.persistence.fetchSettingsModel().measuringUnit
+            selectedId: presenter.settingsData.measuringUnit
         )
         .foregroundColor(.white)
         .padding()
@@ -125,10 +125,10 @@ struct SettingsScreen: View {
     func renderHumidity() -> some View {
         return VStack {
             CheckView(
-                isChecked: viewModel.screenData.humidity,
+                isChecked: presenter.settingsData.humidity,
                 title: "Humidity",
                 action: {
-                    viewModel.toggleFeature(feature: "humidity")
+                    presenter.toggleFeature(feature: "humidity")
                 }
             )
             Image("humidity_icon")
@@ -140,10 +140,10 @@ struct SettingsScreen: View {
     func renderPressure() -> some View {
         return VStack {
             CheckView(
-                isChecked: viewModel.screenData.pressure,
+                isChecked: presenter.settingsData.pressure,
                 title: "Pressure",
                 action: {
-                    viewModel.toggleFeature(feature: "pressure")
+                    presenter.toggleFeature(feature: "pressure")
                 }
             )
             Image("pressure_icon")
@@ -155,10 +155,10 @@ struct SettingsScreen: View {
     func renderWind() -> some View {
         return VStack {
             CheckView(
-                isChecked: viewModel.screenData.wind,
+                isChecked: presenter.settingsData.wind,
                 title: "Wind speed",
                 action: {
-                    viewModel.toggleFeature(feature: "wind")
+                    presenter.toggleFeature(feature: "wind")
                 }
             )
             Image("wind_icon")
