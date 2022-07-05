@@ -1,3 +1,3 @@
 # weather-app-swiftui
 
-app using MVVM and SwiftUI
+app using VIPER and SwiftUI
